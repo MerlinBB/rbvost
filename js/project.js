@@ -11,7 +11,11 @@
                 url: rbvost.siteurl + "?json=1"
             })
             .done(function (data) {
-                rbvost.renderView(data);
+                if (data) {
+                    rbvost.renderView(data);
+                } else {
+                    alert("please log in");
+                }
                 console.log(data);
             })
             .fail(function () {
