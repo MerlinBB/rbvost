@@ -1,14 +1,35 @@
 (function ($) {
     "use strict";
 
-    var wpstarter = {
+    var rbvost = {
+
+        siteurl:    "http://127.0.0.1:8080/wordpress/",
+        themeurl:   "http://127.0.0.1:8080/wordpress//wp-content/themes/rbvost/",
 
         init: function () {
-            this.bindUIActions();
+            $.ajax({
+                url: rbvost.siteurl + "?json=1"
+            })
+            .done(function (data) {
+                rbvost.renderView(data);
+                console.log(data);
+            })
+            .fail(function () {
+                alert("error");
+            });
+        },
+
+        renderView: function (data) {
+            $.get(rbvost.themeurl + "_template.html", function (template) {
+                $("#app").html(
+                    Mustache.render(template, data)
+                );
+                rbvost.bindUIActions();
+            });
         },
 
         bindUIActions: function () {
-            $(".btn").on("click", function (e) { wpstarter.sayHello(e); });
+            $(".btn").on("click", function (e) { rbvost.sayHello(e); });
         },
 
         windowLoaded: function () {
@@ -42,12 +63,12 @@
     };
 
     // DOM Ready
-    $(function () { wpstarter.init(); });
+    $(function () { rbvost.init(); });
     // Images Loaded
-    $(window).load(function () { wpstarter.windowLoaded(); });
+    $(window).load(function () { rbvost.windowLoaded(); });
     // Window Resized (smart debounced event)
-    $(window).bind("debouncedresize", function () { wpstarter.windowResized(); });
+    $(window).bind("debouncedresize", function () { rbvost.windowResized(); });
     // Window Scrolled
-    $(window).on("scroll", function () { wpstarter.windowScrolled(); });
+    $(window).on("scroll", function () { rbvost.windowScrolled(); });
 
 } (jQuery));

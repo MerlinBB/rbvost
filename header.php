@@ -25,17 +25,3 @@
 </head>
 
 <body <?php body_class(); ?>>
-
-<div class="container">
-
-    <header class="page-header">
-        <h1 class="sitename">
-            <a href="<?php echo home_url('/'); ?>">
-                <?php bloginfo('name'); ?>
-            </a>
-        </h1>
-
-        <nav class="menu">
-            <?php wp_nav_menu( array('container_class' => 'menu-header', 'theme_location' => 'primary')); ?>
-        </nav>
-    </header>

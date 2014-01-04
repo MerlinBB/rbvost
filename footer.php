@@ -1,9 +1,3 @@
-    <footer class="page-footer">
-        <p class="copyright">&copy; <?php bloginfo('name'); ?>, <?php echo date('Y'); ?>. All rights reserved.</p>
-    </footer>
-
-</div><?php // </.container> ?>
-
 <?php
     $production = false;
     $theme = get_template_directory_uri();
@@ -19,6 +13,7 @@
         echo '<script src ="' . $theme . '/js/bower/jquery/jquery.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/modernizr/modernizr.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/jquery-smartresize/jquery.debouncedresize.js"></script>';
+        echo '<script src ="' . $theme . '/js/bower/mustache/mustache.js"></script>';
         echo '<script src ="' . $theme . '/js/project.js"></script>';
 
     }
