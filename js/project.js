@@ -5,14 +5,19 @@
 
         siteurl:    "http://127.0.0.1:8080/wordpress/",
         themeurl:   "http://127.0.0.1:8080/wordpress//wp-content/themes/rbvost/",
+        cache: undefined,
 
         init: function () {
+            this.setLoginForm();
+            this.checkLoginError();
+
             $.ajax({
                 url: rbvost.siteurl + "?json=1"
             })
             .done(function (data) {
                 if (data) {
-                    rbvost.renderView(data);
+                    rbvost.cache = data;
+                    rbvost.renderView();
                 } else {
                     alert("please log in");
                 }
@@ -23,7 +28,8 @@
             });
         },
 
-        renderView: function (data) {
+        renderView: function () {
+            var data = rbvost.cache;
             $.get(rbvost.themeurl + "_template.html", function (template) {
                 $("#app").html(
                     Mustache.render(template, data)
@@ -59,9 +65,16 @@
             }, 200);
         },
 
-        sayHello: function (e) {
-            var button = $(e.currentTarget);
-            console.log("Hello! You clicked " + button);
+        setLoginForm: function () {
+            $("#user_login").attr("placeholder", "Username");
+            $("#user_pass").attr("placeholder", "Password");
+        },
+
+        checkLoginError: function () {
+            var querystring = window.location.href.slice(window.location.href.indexOf("?") + 1);
+            if (querystring === "login-failed") {
+                $(".alert").show();
+            }
         }
 
     };
