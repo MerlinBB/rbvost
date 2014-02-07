@@ -34,7 +34,7 @@
 
 <body <?php body_class(); ?>>
 
-<?php include("_redbullheader.html"); ?>
+<?php include("inc/redbullheader.html"); ?>
 
 <div class="alert hidden">
     Sorry, you've entered an incorrect username or password.

@@ -1,4 +1,4 @@
-<?php include("_redbullfooter.html"); ?>
+<?php include("inc/redbullfooter.html"); ?>
 
 <?php
     $production = false;

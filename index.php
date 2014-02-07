@@ -1,11 +1,14 @@
 <?php
     get_header();
 
-        if ( is_user_logged_in() ) {
+        if ( is_user_logged_in() ) { ?>
 
-            echo '<div id=app></div>';
+            <div id="app">
+                <div class="campaign-filters-view"></div>
+                <div class="campaign-list-view"></div>
+            </div>
 
-        } else {
+        <?php } else {
 
             echo '<div class="login-container">';
                 $args = array(
