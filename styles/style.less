@@ -17,6 +17,34 @@
 @import "helpers.less";
 @import "grid.less";
 
+@font-face{
+    font-family:"Siri-Reg";
+    font-style:normal;
+    font-weight:400;
+    src:
+        url("http://www.redbull.com/fonts/SiriCore-Regular_RB.eot?#iefix") format("embedded-opentype"),
+        url("http://www.redbull.com/fonts/SiriCore-Regular_RB.woff") format("woff"),
+        url("http://www.redbull.com/fonts/SiriCore-Regular_RB.ttf") format("truetype")
+}
+@font-face{
+    font-family:"Siri-Bold";
+    font-style:normal;
+    font-weight:700;
+    src:
+        url("http://www.redbull.com/fonts/SiriCore-Bold_RB.eot?#iefix") format("embedded-opentype"),
+        url("http://www.redbull.com/fonts/SiriCore-Bold_RB.woff") format("woff"),
+        url("http://www.redbull.com/fonts/SiriCore-Bold_RB.ttf") format("truetype")
+}
+@font-face{
+    font-family:"Futura-Condensed";
+    font-style:normal;
+    font-weight:700;
+    src:
+        url("/wp-content/themes/rbvost/fonts/271FD1_0_0.eot?#iefix") format("embedded-opentype"),
+        url("/wp-content/themes/rbvost/fonts/271FD1_0_0.woff") format("woff"),
+        url("/wp-content/themes/rbvost/fonts/271FD1_0_0.ttf") format("truetype")
+}
+
 ::-moz-selection {
     background:@color-highlight;
     color:#fff;
@@ -98,28 +126,59 @@ textarea:focus {
 //----------------------------------------------------------------------------//
 
 
-.page-header {
-    .menu {
-        li {
-
+.login-container {
+    background:url(img/logo.png) no-repeat center top;
+    padding-top:170px;
+    margin:100px auto 200px;
+    width:256px;
+    form {
+        width:256px;
+        margin:0 auto;
+        background:#ccc url(img/shield.png) no-repeat center (@space);
+        padding-top:100px;
+        .login-password,
+        .login-username {
+            margin:0 (@space/2) (@space/2) (@space/2);
+            &:last-child { margin-bottom:0; }
+            label { display:none; }
         }
-        a:link,
-        a:visited {
-
-        }
-        .current-menu-item a,
-        .current-post-ancestor a,
-        a:hover,
-        a:focus {
-
+        .login-remember {
+            margin:@space (@space/2);
+            input[type="checkbox"] {
+                appearance:none;
+                .square(@space);
+                border-radius:0;
+                background:#fff;
+                border:1px solid #333;
+                cursor:pointer;
+                transition:background 0.2s;
+                &:checked {
+                    background:red;
+                }
+            }
+            label {
+                color:#333;
+                font-size:12px;
+                line-height:16px;
+                text-transform:uppercase;
+            }
         }
     }
-    .sitename a {
-
+    @media (max-width:@break-small) {
+        margin:30px auto;
     }
-    @media (max-width:@break-small) { }
     @media (max-width:@break-medium) { }
     @media (max-width:@break-large) { }
+}
+
+.alert {
+    .center-block();
+    border-radius:4px;
+    width:256px;
+    background:#2ecc71;
+    padding:(@space/2);
+    color:#fff;
+    margin-top:@space;
 }
 
 
