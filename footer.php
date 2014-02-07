@@ -16,6 +16,7 @@
         echo '<script src ="' . $theme . '/js/bower/modernizr/modernizr.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/jquery-smartresize/jquery.debouncedresize.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/mustache/mustache.js"></script>';
+        echo '<script src ="' . $theme . '/js/bower/underscore/underscore.js"></script>';
         echo '<script src ="' . $theme . '/js/project.js"></script>';
 
     }

@@ -66,6 +66,7 @@ module.exports = function (grunt) {
                     "js/bower/modernizr/modernizr.js",
                     "js/bower/jquery-smartresize/jquery.debouncedresize.js",
                     "js/bower/mustache/mustache.js",
+                    "js/bower/underscore/underscore.js",
                     "js/project.js"
                 ],
                 dest: "js/production.js"
