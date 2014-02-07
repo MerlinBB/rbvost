@@ -30,6 +30,55 @@
     }
 
 
+    // Stop WordPress spitting out RedBull confidential stuff in feeds
+    remove_action( 'wp_head', 'feed_links_extra', 3 ); // extra feeds such as category feeds
+    remove_action( 'wp_head', 'feed_links', 2 ); // general feeds: Post and Comment Feed
+    remove_action( 'wp_head', 'rsd_link'); // link to the Really Simple Discovery service endpoint, EditURI link
+    remove_action( 'wp_head', 'wlwmanifest_link'); // link to the Windows Live Writer manifest file.
+    remove_action( 'wp_head', 'index_rel_link'); // index link
+    remove_action( 'wp_head', 'parent_post_rel_link'); // prev link
+    remove_action( 'wp_head', 'start_post_rel_link'); // the start link
+    remove_action( 'wp_head', 'adjacent_posts_rel_link'); // relational links for the posts adjacent to the current post.
+
+
+    // only I need to see the ACF stuff :)
+    function remove_acf_menu() {
+        $admins = array('merlin');
+        $current_user = wp_get_current_user();
+        if( !in_array( $current_user->user_login, $admins ) ) {
+            remove_menu_page('edit.php?post_type=acf');
+        }
+    }
+    add_action( 'admin_menu', 'remove_acf_menu' );
+
+
+    // if login is incorrect, stop users going to the admin section
+    add_filter('login_redirect', '_catch_login_error', 10, 3);
+
+    function _catch_login_error($redir1, $redir2, $wperr_user)
+    {
+        if(!is_wp_error($wperr_user) || !$wperr_user->get_error_code()) return $redir1;
+
+        switch($wperr_user->get_error_code())
+        {
+            case 'incorrect_password':
+            case 'empty_password':
+            case 'invalid_username':
+            default:
+                wp_redirect('/?login-failed'); // modify this as you wish
+        }
+
+        return $redir1;
+    }
+
+
+    // Customise the footer in admin area
+    function wpfme_footer_admin () {
+        echo 'Created with love &amp; Red Bull.';
+    }
+    add_filter('admin_footer_text', 'wpfme_footer_admin');
+
+
     // From wpfunction.me
 
     // Remove the admin bar from the front end
