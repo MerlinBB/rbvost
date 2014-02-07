@@ -6,7 +6,7 @@
     "box-model": false,
     "overqualified-elements": true,
     "display-property-grouping": true,
-    "bulletproof-font-face": true,
+    "bulletproof-font-face": false,
     "compatible-vendor-prefixes": false,
     "regex-selectors": true,
     "errors": true,
