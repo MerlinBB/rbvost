@@ -1,3 +1,5 @@
+<?php include("_redbullfooter.html"); ?>
+
 <?php
     $production = false;
     $theme = get_template_directory_uri();
