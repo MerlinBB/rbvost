@@ -4,7 +4,7 @@
     var rbvost = {
 
         siteurl:    "http://127.0.0.1:8080/wordpress/",
-        themeurl:   "http://127.0.0.1:8080/wordpress//wp-content/themes/rbvost/",
+        templateurl:   "http://127.0.0.1:8080/wordpress//wp-content/themes/rbvost/templates/",
         cache: undefined,
 
         init: function () {
@@ -17,25 +17,41 @@
             .done(function (data) {
                 if (data) {
                     rbvost.cache = data;
-                    rbvost.renderView();
+                    rbvost.router("campaign");
                 } else {
                     alert("please log in");
                 }
-                console.log(data);
             })
             .fail(function () {
                 alert("error");
             });
         },
 
-        renderView: function () {
-            var data = rbvost.cache;
-            $.get(rbvost.themeurl + "_template.html", function (template) {
-                $("#app").html(
+        router: function (view) {
+            if (view === "campaign") {
+                rbvost.renderCampaignFilters();
+                rbvost.renderCampaignList();
+            }
+        },
+
+        renderView: function (data, template, el) {
+            $.get(rbvost.templateurl + template, function (template) {
+                $(el).html(
                     Mustache.render(template, data)
                 );
                 rbvost.bindUIActions();
             });
+        },
+
+        renderCampaignFilters: function () {
+            var data = rbvost.cache;
+            console.log(data);
+            rbvost.renderView(data, "campaign-filters.html", ".campaign-filters-view");
+        },
+
+        renderCampaignList: function () {
+            var data = rbvost.cache;
+            rbvost.renderView(data, "campaign-list.html", ".campaign-list-view");
         },
 
         bindUIActions: function () {
