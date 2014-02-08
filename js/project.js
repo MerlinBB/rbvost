@@ -3,10 +3,10 @@
 
     var rbvost = {
 
-        siteurl:    "http://127.0.0.1:8080/wordpress/",
+        siteurl:       "http://127.0.0.1:8080/wordpress/",
         templateurl:   "http://127.0.0.1:8080/wordpress//wp-content/themes/rbvost/templates/",
-        defaultPage: "campaign",
-        cache: undefined,
+        currentPage:   "campaign",
+        cache:         {},
 
         init: function () {
             this.setLoginForm();
@@ -18,8 +18,11 @@
                 url: rbvost.siteurl + "?json=1"
             })
             .done(function (data) {
-                rbvost.cache = data;
-                rbvost.router(rbvost.defaultPage);
+                // if we're logged out api will not return anything
+                if (data) {
+                    rbvost.cache = data;
+                    rbvost.router(rbvost.currentPage);
+                }
             })
             .fail(function () {
                 alert("error");
