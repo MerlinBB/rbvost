@@ -4,8 +4,14 @@
         if ( is_user_logged_in() ) { ?>
 
             <div id="app">
-                <div class="campaign-filters-view"></div>
-                <div class="campaign-list-view"></div>
+                <nav>
+                    <button data-navigate="campaign">Campaigns</button>
+                    <button data-navigate="calendar">Calendar</button>
+                </nav>
+                <div class="view campaign-filters-view"></div>
+                <div class="view campaign-list-view"></div>
+
+                <div class="view calendar-view">Calendar</div>
             </div>
 
         <?php } else {

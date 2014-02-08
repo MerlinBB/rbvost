@@ -5,28 +5,37 @@
 
         siteurl:    "http://127.0.0.1:8080/wordpress/",
         templateurl:   "http://127.0.0.1:8080/wordpress//wp-content/themes/rbvost/templates/",
+        defaultPage: "campaign",
         cache: undefined,
 
         init: function () {
             this.setLoginForm();
             this.checkLoginError();
+            this.setAppHeight();
+            this.bindUIActions();
 
             $.ajax({
                 url: rbvost.siteurl + "?json=1"
             })
             .done(function (data) {
                 rbvost.cache = data;
-                rbvost.router("campaign");
+                rbvost.router(rbvost.defaultPage);
             })
             .fail(function () {
                 alert("error");
             });
         },
 
-        router: function (view) {
-            if (view === "campaign") {
+        router: function (page) {
+            $(".view").hide();
+
+            if (page === "campaign") {
                 rbvost.renderCampaignFilters();
                 rbvost.renderCampaignList();
+            }
+
+            if (page === "calendar") {
+                $(".calendar-view").fadeIn("slow");
             }
         },
 
@@ -35,7 +44,7 @@
                 $(el).html(
                     Mustache.render(template, data)
                 );
-                rbvost.bindUIActions();
+                $(el).fadeIn("slow");
             });
         },
 
@@ -43,7 +52,6 @@
             var data = rbvost.cache;
 
             data.catDesc = function () {
-                console.log(this);
                 if (this.parent) {
                     return "<h2>" + this.title + "</h2><p>" + this.description + "</p>";
                 }
@@ -66,6 +74,7 @@
 
         bindUIActions: function () {
             $(".btn").on("click", function (e) { rbvost.sayHello(e); });
+            $("[data-navigate]").on("click", function (e) { rbvost.navigate(e); });
         },
 
         windowLoaded: function () {
@@ -101,6 +110,17 @@
             if (querystring === "login-failed") {
                 $(".alert").show();
             }
+        },
+
+        setAppHeight: function () {
+            // set a min height minus the guessed height for redbull global header / footer
+            var appHeight = $(window).height() - 186 + "px";
+            $("#app").css({ "min-height" : appHeight });
+        },
+
+        navigate: function (e) {
+            var destination = $(e.currentTarget).data("navigate");
+            rbvost.router(destination);
         }
 
     };
