@@ -10,21 +10,7 @@
         init: function () {
             this.setLoginForm();
             this.checkLoginError();
-
-            $.ajax({
-                url: rbvost.siteurl + "?json=1"
-            })
-            .done(function (data) {
-                if (data) {
-                    rbvost.cache = data;
-                    rbvost.router("campaign");
-                } else {
-                    alert("please log in");
-                }
-            })
-            .fail(function () {
-                alert("error");
-            });
+            rbvost.router("campaign");
         },
 
         router: function (view) {
@@ -44,14 +30,36 @@
         },
 
         renderCampaignFilters: function () {
-            var data = rbvost.cache;
-            console.log(data);
-            rbvost.renderView(data, "campaign-filters.html", ".campaign-filters-view");
+            $.ajax({ url: rbvost.siteurl + "?json=get_category_index" })
+            .done(function (data) {
+                // if the category has a parent we assume it's a target
+                // if not then it's a calendar year
+                var targets = _(data.categories).filter(function (category) {
+                    return category.parent;
+                });
+                data.categories = targets;
+                rbvost.renderView(data, "campaign-filters.html", ".campaign-filters-view");
+            })
+            .fail(function () {
+                alert("error");
+            });
         },
 
         renderCampaignList: function () {
-            var data = rbvost.cache;
-            rbvost.renderView(data, "campaign-list.html", ".campaign-list-view");
+            $.ajax({ url: rbvost.siteurl + "?json=1" })
+            .done(function (data) {
+                // if the category has a parent we assume it's a target
+                // if not then it's a calendar year
+                data.isCat = function () {
+                    if (this.parent) {
+                        return this.title;
+                    }
+                };
+                rbvost.renderView(data, "campaign-list.html", ".campaign-list-view");
+            })
+            .fail(function () {
+                alert("error");
+            });
         },
 
         bindUIActions: function () {

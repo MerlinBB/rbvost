@@ -1,5 +1,8 @@
 {{#posts}}
-    {{#categories}}
-	<h2>{{title}} - {{description}}</h2>
-    {{/categories}}
+	<h2>{{title}}</h2>
+    <p>
+        {{#categories}}
+            {{isCat}}
+        {{/categories}}
+    </p>
 {{/posts}}

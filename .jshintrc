@@ -16,6 +16,7 @@
         "require": true,
         "Modernizr": true,
         "alert": true,
-        "Mustache": true
+        "Mustache": true,
+        "_": true
     }
 }
