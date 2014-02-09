@@ -19,6 +19,12 @@
             rbvost.getContent();
         },
 
+
+        // -----------------------------------------------------------------------------------------
+        // API Requests
+        // -----------------------------------------------------------------------------------------
+
+
         buildMenu: function () {
             // get list of years for year selector menu
             $.ajax({
@@ -28,7 +34,9 @@
                 // if we're logged out api will not return anything
                 if (data) {
                     for (var i = 0; i < data.categories.length; i++) {
+                        // if category has no parent, it's a year
                         if (!data.categories[i].parent) {
+                            // push year into our array of years
                             rbvost.dateRange.years.push(data.categories[i].slug);
                         }
                     }
@@ -56,6 +64,12 @@
                 alert("error");
             });
         },
+
+
+        // -----------------------------------------------------------------------------------------
+        // Common Functions
+        // -----------------------------------------------------------------------------------------
+
 
         bindUIActions: function () {
             $("[data-navigate]").on("click", function (e) { rbvost.navigate(e); });
@@ -86,10 +100,81 @@
             });
         },
 
+        windowLoaded: function () {
+            console.log("Loaded");
+        },
+
+        windowResized: function () {
+            console.log("Resized");
+        },
+
+        windowScrolled: function () {
+            // Improve performance while scrolling by not triggering hover events
+            // http://www.thecssninja.com/javascript/pointer-events-60fps
+            var body = document.documentElement;
+            var timer;
+
+            if (!body.style.pointerEvents) {
+                body.style.pointerEvents = "none";
+            }
+
+            timer = setTimeout(function () {
+                body.style.pointerEvents = "";
+            }, 200);
+        },
+
+        setAppHeight: function () {
+            // set a min height minus the guessed height for redbull global header / footer
+            var appHeight = $(window).height() - 186 + "px";
+            $("#app").css({ "min-height" : appHeight });
+        },
+
+        navigate: function (e) {
+            var destination = $(e.currentTarget).data("navigate");
+            rbvost.router(destination);
+        },
+
+
+        // -----------------------------------------------------------------------------------------
+        // Login View
+        // -----------------------------------------------------------------------------------------
+
+
+        setLoginForm: function () {
+            $("#user_login").attr("placeholder", "Username");
+            $("#user_pass").attr("placeholder", "Password");
+        },
+
+        checkLoginError: function () {
+            var querystring = window.location.href.slice(window.location.href.indexOf("?") + 1);
+            if (querystring === "login-failed") {
+                $(".alert").show();
+            }
+        },
+
+
+        // -----------------------------------------------------------------------------------------
+        // Menu View
+        // -----------------------------------------------------------------------------------------
+
+
         renderMenu: function () {
             var data = rbvost.dateRange;
+
             rbvost.renderView(data, "year-selector.html", ".year-selector-view");
         },
+
+        yearShouldChange: function (e) {
+            rbvost.currentYear = $(e.currentTarget).val();
+            // Hit API for requested year, update cache and re-render
+            rbvost.getContent();
+        },
+
+
+        // -----------------------------------------------------------------------------------------
+        // Campaigns View
+        // -----------------------------------------------------------------------------------------
+
 
         renderCampaignFilters: function () {
             var data = rbvost.cache;
@@ -117,57 +202,6 @@
             };
 
             rbvost.renderView(data, "campaign-list.html", ".campaign-list-view");
-        },
-
-        windowLoaded: function () {
-            console.log("Loaded");
-        },
-
-        windowResized: function () {
-            console.log("Resized");
-        },
-
-        windowScrolled: function () {
-            // Improve performance while scrolling by not triggering hover events
-            // http://www.thecssninja.com/javascript/pointer-events-60fps
-            var body = document.documentElement;
-            var timer;
-
-            if (!body.style.pointerEvents) {
-                body.style.pointerEvents = "none";
-            }
-
-            timer = setTimeout(function () {
-                body.style.pointerEvents = "";
-            }, 200);
-        },
-
-        setLoginForm: function () {
-            $("#user_login").attr("placeholder", "Username");
-            $("#user_pass").attr("placeholder", "Password");
-        },
-
-        checkLoginError: function () {
-            var querystring = window.location.href.slice(window.location.href.indexOf("?") + 1);
-            if (querystring === "login-failed") {
-                $(".alert").show();
-            }
-        },
-
-        setAppHeight: function () {
-            // set a min height minus the guessed height for redbull global header / footer
-            var appHeight = $(window).height() - 186 + "px";
-            $("#app").css({ "min-height" : appHeight });
-        },
-
-        navigate: function (e) {
-            var destination = $(e.currentTarget).data("navigate");
-            rbvost.router(destination);
-        },
-
-        yearShouldChange: function (e) {
-            rbvost.currentYear = $(e.currentTarget).val();
-            rbvost.getContent();
         }
 
     };
