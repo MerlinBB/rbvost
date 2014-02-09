@@ -29,6 +29,11 @@
             });
         },
 
+        bindUIActions: function () {
+            $(".btn").on("click", function (e) { rbvost.sayHello(e); });
+            $("[data-navigate]").on("click", function (e) { rbvost.navigate(e); });
+        },
+
         router: function (page) {
             $(".view").hide();
 
@@ -40,6 +45,8 @@
             if (page === "calendar") {
                 $(".calendar-view").fadeIn("slow");
             }
+
+            rbvost.currentPage = page;
         },
 
         renderView: function (data, template, el) {
@@ -54,6 +61,8 @@
         renderCampaignFilters: function () {
             var data = rbvost.cache;
 
+            // filters down to just subcategories
+            // ie: targets not years
             data.catDesc = function () {
                 if (this.parent) {
                     return "<h2>" + this.title + "</h2><p>" + this.description + "</p>";
@@ -66,6 +75,8 @@
         renderCampaignList: function () {
             var data = rbvost.cache;
 
+            // filters down to just subcategories
+            // ie: targets not years
             data.cat = function () {
                 if (this.parent) {
                     return this.title;
@@ -73,11 +84,6 @@
             };
 
             rbvost.renderView(data, "campaign-list.html", ".campaign-list-view");
-        },
-
-        bindUIActions: function () {
-            $(".btn").on("click", function (e) { rbvost.sayHello(e); });
-            $("[data-navigate]").on("click", function (e) { rbvost.navigate(e); });
         },
 
         windowLoaded: function () {
