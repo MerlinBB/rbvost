@@ -1,5 +1,5 @@
 <select name="year" id="year-selector" class="year-selector">
 	{{#years}}
-		<option value="{{.}}">{{.}}</option>
+		<option value="{{year}}" {{#isCurrent}} selected {{/isCurrent}}>{{year}}</option>
 	{{/years}}
 </select>

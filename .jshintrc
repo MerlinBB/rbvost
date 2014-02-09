@@ -1,6 +1,6 @@
 {
     "curly": true,
-    "eqeqeq": true,
+    "eqeqeq": false,
     "strict": true,
     "evil": true,
     "indent": 4,

@@ -36,8 +36,14 @@
                     for (var i = 0; i < data.categories.length; i++) {
                         // if category has no parent, it's a year
                         if (!data.categories[i].parent) {
-                            // push year into our array of years
-                            rbvost.dateRange.years.push(data.categories[i].slug);
+
+                            var period = {};
+                            period.year = data.categories[i].slug;
+                            if (data.categories[i].slug == rbvost.currentYear) {
+                                period.isCurrent = true;
+                            }
+
+                            rbvost.dateRange.years.push(period);
                         }
                     }
                     rbvost.renderMenu();
