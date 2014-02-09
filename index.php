@@ -8,10 +8,12 @@
                     <button data-navigate="campaign">Campaigns</button>
                     <button data-navigate="calendar">Calendar</button>
                 </nav>
-                <div class="view campaign-filters-view"></div>
-                <div class="view campaign-list-view"></div>
+                <div class="year-selector-view"></div>
 
-                <div class="view calendar-view">Calendar</div>
+                <div class="switch-view campaign-filters-view"></div>
+                <div class="switch-view campaign-list-view"></div>
+
+                <div class="switch-view calendar-view">Calendar</div>
             </div>
 
         <?php } else {

@@ -6,6 +6,8 @@
         siteurl:       "http://127.0.0.1:8080/wordpress/",
         templateurl:   "http://127.0.0.1:8080/wordpress//wp-content/themes/rbvost/templates/",
         currentPage:   "campaign",
+        currentYear:   new Date().getFullYear(),
+        dateRange:     { years: [] },
         cache:         {},
 
         init: function () {
@@ -13,9 +15,35 @@
             this.checkLoginError();
             this.setAppHeight();
             this.bindUIActions();
+            rbvost.buildMenu();
+            rbvost.getContent();
+        },
 
+        buildMenu: function () {
+            // get list of years for year selector menu
             $.ajax({
-                url: rbvost.siteurl + "?json=1"
+                url: rbvost.siteurl + "?json=get_category_index"
+            })
+            .done(function (data) {
+                // if we're logged out api will not return anything
+                if (data) {
+                    for (var i = 0; i < data.categories.length; i++) {
+                        if (!data.categories[i].parent) {
+                            rbvost.dateRange.years.push(data.categories[i].slug);
+                        }
+                    }
+                    rbvost.renderMenu();
+                }
+            })
+            .fail(function () {
+                alert("error");
+            });
+        },
+
+        getContent: function () {
+            // get all content for current year
+            $.ajax({
+                url: rbvost.siteurl + "?json=get_category_posts&slug=" + rbvost.currentYear
             })
             .done(function (data) {
                 // if we're logged out api will not return anything
@@ -30,12 +58,12 @@
         },
 
         bindUIActions: function () {
-            $(".btn").on("click", function (e) { rbvost.sayHello(e); });
             $("[data-navigate]").on("click", function (e) { rbvost.navigate(e); });
+            $("body").on("change", "#year-selector", function (e) { rbvost.yearShouldChange(e); });
         },
 
         router: function (page) {
-            $(".view").hide();
+            $(".switch-view").hide();
 
             if (page === "campaign") {
                 rbvost.renderCampaignFilters();
@@ -56,6 +84,11 @@
                 );
                 $(el).fadeIn("slow");
             });
+        },
+
+        renderMenu: function () {
+            var data = rbvost.dateRange;
+            rbvost.renderView(data, "year-selector.html", ".year-selector-view");
         },
 
         renderCampaignFilters: function () {
@@ -130,6 +163,11 @@
         navigate: function (e) {
             var destination = $(e.currentTarget).data("navigate");
             rbvost.router(destination);
+        },
+
+        yearShouldChange: function (e) {
+            rbvost.currentYear = $(e.currentTarget).val();
+            rbvost.getContent();
         }
 
     };
