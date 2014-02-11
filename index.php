@@ -13,7 +13,8 @@
                 <div class="switch-view campaign-filters-view"></div>
                 <div class="switch-view campaign-list-view"></div>
 
-                <div class="switch-view calendar-view">Calendar</div>
+                <div class="switch-view calendar-filters-view"></div>
+                <div class="switch-view calendar-view"></div>
             </div>
 
         <?php } else {

@@ -93,7 +93,8 @@
             }
 
             if (page === "calendar") {
-                $(".calendar-view").fadeIn("slow");
+                rbvost.renderCalendarFilters();
+                rbvost.renderCalendar();
             }
 
             rbvost.currentPage = page;
@@ -210,6 +211,40 @@
             };
 
             rbvost.renderView(data, "campaign-list.html", ".campaign-list-view");
+        },
+
+
+        // -----------------------------------------------------------------------------------------
+        // Campaigns View
+        // -----------------------------------------------------------------------------------------
+
+
+        renderCalendarFilters: function () {
+            var data = rbvost.cache;
+
+            // filters down to just subcategories
+            // ie: targets not years
+            data.catDesc = function () {
+                if (this.parent) {
+                    return "<h2>" + this.title + "</h2><p>" + this.description + "</p>";
+                }
+            };
+
+            rbvost.renderView(data, "calendar-filters.html", ".calendar-filters-view");
+        },
+
+        renderCalendar: function () {
+            var data = rbvost.cache;
+
+            // filters down to just subcategories
+            // ie: targets not years
+            data.catDesc = function () {
+                if (this.parent) {
+                    return "<h2>" + this.title + "</h2><p>" + this.description + "</p>";
+                }
+            };
+
+            rbvost.renderView(data, "calendar.html", ".calendar-view");
         }
 
     };
