@@ -15,8 +15,12 @@
             this.checkLoginError();
             this.setAppHeight();
             this.bindUIActions();
-            rbvost.buildMenu();
-            rbvost.getContent();
+
+            // only bother to make API calls if we're logged in
+            if ($("body").hasClass("logged-in")) {
+                rbvost.buildMenu();
+                rbvost.getContent();
+            }
         },
 
 
@@ -31,26 +35,27 @@
                 url: rbvost.siteurl + "?json=get_category_index"
             })
             .done(function (data) {
-                // if we're logged out api will not return anything
-                if (data) {
-                    for (var i = 0; i < data.categories.length; i++) {
-                        // if category has no parent, it's a year
-                        if (!data.categories[i].parent) {
+                _.each(data.categories, function (category) {
+                    // if category has no parent, it's a year
+                    if (!category.parent) {
 
-                            var period = {};
-                            period.year = data.categories[i].slug;
-                            if (data.categories[i].slug == rbvost.currentYear) {
-                                period.isCurrent = true;
-                            }
-
-                            rbvost.dateRange.years.push(period);
+                        // create period object
+                        var period = {};
+                        // add year to object
+                        period.year = category.slug;
+                        // if this year is the current calendar year, mark it as so
+                        if (category.slug == rbvost.currentYear) {
+                            period.isCurrent = true;
                         }
+                        // push results to hoisted array
+                        rbvost.dateRange.years.push(period);
                     }
-                    rbvost.renderMenu();
-                }
+                });
+                // now we have a daterange array, we can render the menu
+                rbvost.renderMenu();
             })
             .fail(function () {
-                alert("error");
+                alert("Sorry, there is currently an error fetching the date range.");
             });
         },
 
@@ -60,14 +65,11 @@
                 url: rbvost.siteurl + "?json=get_category_posts&slug=" + rbvost.currentYear
             })
             .done(function (data) {
-                // if we're logged out api will not return anything
-                if (data) {
-                    rbvost.cache = data;
-                    rbvost.router(rbvost.currentPage);
-                }
+                rbvost.cache = data;
+                rbvost.router(rbvost.currentPage);
             })
             .fail(function () {
-                alert("error");
+                alert("Sorry, there is currently an error fetching the content.");
             });
         },
 
