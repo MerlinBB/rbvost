@@ -215,7 +215,7 @@
 
 
         // -----------------------------------------------------------------------------------------
-        // Campaigns View
+        // Calendar View
         // -----------------------------------------------------------------------------------------
 
 
@@ -236,15 +236,18 @@
         renderCalendar: function () {
             var data = rbvost.cache;
 
-            // filters down to just subcategories
-            // ie: targets not years
-            data.catDesc = function () {
-                if (this.parent) {
-                    return "<h2>" + this.title + "</h2><p>" + this.description + "</p>";
+            $.get(rbvost.templateurl + "calendar.html", function (calendarTemplate) {
+                for (var i = 1; i <= 12; i++) {
+                    var el = ".calendar-subview-" + [i];
+                    $(el).clndr({
+                        template: calendarTemplate,
+                        showAdjacentMonths: false,
+                        startWithMonth: rbvost.currentYear + "-" + [i] + "-01"
+                    });
                 }
-            };
+            });
 
-            rbvost.renderView(data, "calendar.html", ".calendar-view");
+            $(".calendar-view").fadeIn("fast");
         }
 
     };

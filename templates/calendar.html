@@ -1,1 +1,18 @@
-this is the calendar
+<div class="row">
+    <div class="col-sm-2">
+        <h3>
+            <%= month %>
+        </h3>
+    </div>
+    <div class="col-sm-10">
+        <table class="calendar">
+            <tbody>
+                <tr>
+                    <% _.each(days, function(day) { %>
+                        <td class="<%= day.classes %> fl" data-date="<%= moment(day.date).format('YYYY-MM-DD') %>"><%= day.day %></td>
+                    <% }); %>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

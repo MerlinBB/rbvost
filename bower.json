@@ -2,12 +2,13 @@
   "name": "wp-starter",
   "version": "1.0.0",
   "dependencies": {
-    "jquery": "~2",
+    "jquery": "~2.1",
     "jquery-smartresize": "latest",
     "modernizr": "~2.7.1"
   },
   "private": true,
   "devDependencies": {
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "clndr": "~1.2.0"
   }
 }
