@@ -130,7 +130,7 @@ module.exports = function (grunt) {
 
     // List of available tasks
     grunt.registerTask("default", []);
-    grunt.registerTask("buildcss", ["less", "autoprefixer", "csslint", "cssmin", "imagemin", "notify:less"]);
-    grunt.registerTask("buildjs", ["jshint", "concat", "uglify", "notify:js"]);
+    grunt.registerTask("buildcss", ["less", "autoprefixer", "csslint", "cssmin", "imagemin"]);
+    grunt.registerTask("buildjs", ["jshint", "concat", "uglify"]);
 
 };
