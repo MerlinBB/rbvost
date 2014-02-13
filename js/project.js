@@ -4,7 +4,7 @@
     var rbvost = {
 
         siteurl:       "http://127.0.0.1:8080/wordpress/",
-        templateurl:   "http://127.0.0.1:8080/wordpress//wp-content/themes/rbvost/templates/",
+        templateurl:   "http://127.0.0.1:8080/wordpress/wp-content/themes/rbvost/templates/",
         currentPage:   "campaign",
         currentYear:   new Date().getFullYear(),
         dateRange:     { years: [] },
@@ -169,7 +169,6 @@
 
         renderMenu: function () {
             var data = rbvost.dateRange;
-
             rbvost.renderView(data, "year-selector.html", ".year-selector-view");
         },
 
