@@ -17,6 +17,7 @@
         "Modernizr": true,
         "alert": true,
         "Mustache": true,
-        "_": true
+        "_": true,
+        "moment": true
     }
 }
