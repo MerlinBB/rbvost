@@ -235,6 +235,22 @@
 
         renderCalendar: function () {
             var data = rbvost.cache;
+            var calendarEvents = [];
+
+            _.each(data.posts, function (post) {
+                _.each(post.acf.events, function (event) {
+                    // create event object
+                    var thisEvent = {};
+                    // add data to object
+                    thisEvent.date = event.event_date;
+                    thisEvent.prettyDate = moment(event.event_date).format("MMM Do YYYY");
+                    thisEvent.location = event.event_location;
+                    thisEvent.name = event.event_name;
+                    // push results to hoisted array
+                    calendarEvents.push(thisEvent);
+                });
+
+            });
 
             $.get(rbvost.templateurl + "calendar.html", function (calendarTemplate) {
                 for (var i = 1; i <= 12; i++) {
@@ -242,7 +258,8 @@
                     $(el).clndr({
                         template: calendarTemplate,
                         showAdjacentMonths: false,
-                        startWithMonth: rbvost.currentYear + "-" + [i] + "-01"
+                        startWithMonth: rbvost.currentYear + "-" + [i] + "-01",
+                        events: calendarEvents
                     });
                 }
             });

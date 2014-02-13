@@ -9,7 +9,15 @@
             <tbody>
                 <tr>
                     <% _.each(days, function(day) { %>
-                        <td class="<%= day.classes %> fl" data-date="<%= moment(day.date).format('YYYY-MM-DD') %>"><%= day.day %></td>
+                        <td class="<%= day.classes %> fl" data-date="<%= moment(day.date).format('YYYY-MM-DD') %>">
+                            <%= day.day %>
+                            <% console.log(day) %>
+                            <% _.each(day.events, function(event) { %>
+                                <%= event.name %>
+                                <%= event.prettyDate %>
+                                <%= event.location %>
+                            <% }); %>
+                        </td>
                     <% }); %>
                 </tr>
             </tbody>
