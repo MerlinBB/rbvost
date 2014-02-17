@@ -262,18 +262,20 @@
             });
 
             $.get(rbvost.templateurl + "calendar.html", function (calendarTemplate) {
-                for (var i = 1; i <= 12; i++) {
-                    var el = ".calendar-subview-" + [i];
-                    $(el).clndr({
-                        template: calendarTemplate,
-                        showAdjacentMonths: false,
-                        startWithMonth: rbvost.currentYear + "-" + [i] + "-01",
-                        events: calendarEvents
-                    });
-                }
+                $(".calendar-view").clndr({
+                    template: calendarTemplate,
+                    events: calendarEvents,
+                    showAdjacentMonths: false,
+
+                    lengthOfTime: {
+                        months: 12,
+                        startDate: rbvost.currentYear + "-01-01"
+                    }
+                });
+
+                $(".calendar-view").fadeIn("fast");
             });
 
-            $(".calendar-view").fadeIn("fast");
         }
 
     };
