@@ -9,6 +9,7 @@
         currentYear:   new Date().getFullYear(),
         dateRange:     { years: [] },
         cache:         {},
+        calendar:      undefined,
 
         init: function () {
             this.setLoginForm();
@@ -261,21 +262,28 @@
 
             });
 
-            $.get(rbvost.templateurl + "calendar.html", function (calendarTemplate) {
-                $(".calendar-view").clndr({
-                    template: calendarTemplate,
-                    events: calendarEvents,
-                    showAdjacentMonths: false,
+            if (rbvost.calendar) {
+                rbvost.calendar.setEvents(calendarEvents);
+                rbvost.calendar.setYear(rbvost.currentYear);
+                $(".calendar-view").fadeIn("fast");
+            } else {
 
-                    lengthOfTime: {
-                        months: 12,
-                        startDate: rbvost.currentYear + "-01-01"
-                    }
+                $.get(rbvost.templateurl + "calendar.html", function (calendarTemplate) {
+                    rbvost.calendar = $(".calendar-view").clndr({
+                        template: calendarTemplate,
+                        events: calendarEvents,
+                        showAdjacentMonths: false,
+
+                        lengthOfTime: {
+                            months: 12,
+                            startDate: rbvost.currentYear + "-01-01"
+                        }
+                    });
+
+                    $(".calendar-view").fadeIn("fast");
                 });
 
-                $(".calendar-view").fadeIn("fast");
-            });
-
+            }
         }
 
     };
