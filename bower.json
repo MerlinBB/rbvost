@@ -9,6 +9,9 @@
   "private": true,
   "devDependencies": {
     "underscore": "~1.5.2",
-    "clndr": "~1.2.0"
+    "clndr": "intervals"
+  },
+  "resolutions": {
+    "clndr": "intervals"
   }
 }
