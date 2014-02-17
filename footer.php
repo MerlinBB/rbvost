@@ -18,6 +18,7 @@
         echo '<script src ="' . $theme . '/js/bower/mustache/mustache.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/underscore/underscore.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/moment/moment.js"></script>';
+        echo '<script src ="' . $theme . '/js/bower/isotope/jquery.isotope.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/clndr/src/clndr.js"></script>';
         echo '<script src ="' . $theme . '/js/project.js"></script>';
 

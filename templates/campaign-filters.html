@@ -1,6 +1,8 @@
-<h2>All</h2>
-{{#posts}}
-    {{#categories}}
-        {{{catDesc}}}
-    {{/categories}}
-{{/posts}}
+<div class="filters-container">
+    <button data-filter="*">All</button>
+    {{#posts}}
+        {{#categories}}
+            {{{catButton}}}
+        {{/categories}}
+    {{/posts}}
+</div>

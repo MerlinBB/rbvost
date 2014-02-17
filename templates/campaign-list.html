@@ -1,8 +1,12 @@
-{{#posts}}
-    <h4>{{title}}</h4>
-    <p>
-        {{#categories}}
-            {{cat}}
-        {{/categories}}
-    </p>
-{{/posts}}
+<div class="isotope-container">
+    {{#posts}}
+        <div class="item {{#categories}} {{catSlug}} {{/categories}}">
+            <h4>{{title}}</h4>
+            <p>
+                {{#categories}}
+                    {{catTitle}}
+                {{/categories}}
+            </p>
+        </div>
+    {{/posts}}
+</div>

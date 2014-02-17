@@ -82,6 +82,7 @@
         bindUIActions: function () {
             $("[data-navigate]").on("click", function (e) { rbvost.navigate(e); });
             $("body").on("change", "#year-selector", function (e) { rbvost.yearShouldChange(e); });
+            $("body").on("click", ".filters-container button", function (e) { rbvost.campaignsShouldFilter(e); });
         },
 
         router: function (page) {
@@ -100,12 +101,15 @@
             rbvost.currentPage = page;
         },
 
-        renderView: function (data, template, el) {
+        renderView: function (data, template, el, callback) {
             $.get(rbvost.templateurl + template, function (template) {
                 $(el).html(
                     Mustache.render(template, data)
                 );
+
                 $(el).fadeIn("slow");
+
+                if (callback) { callback(); }
             });
         },
 
@@ -118,18 +122,7 @@
         },
 
         windowScrolled: function () {
-            // Improve performance while scrolling by not triggering hover events
-            // http://www.thecssninja.com/javascript/pointer-events-60fps
-            var body = document.documentElement;
-            var timer;
-
-            if (!body.style.pointerEvents) {
-                body.style.pointerEvents = "none";
-            }
-
-            timer = setTimeout(function () {
-                body.style.pointerEvents = "";
-            }, 200);
+            console.log("Scrolled");
         },
 
         setAppHeight: function () {
@@ -189,9 +182,9 @@
 
             // filters down to just subcategories
             // ie: targets not years
-            data.catDesc = function () {
+            data.catButton = function () {
                 if (this.parent) {
-                    return "<h2>" + this.title + "</h2><p>" + this.description + "</p>";
+                    return "<button data-filter=\"." + this.slug + "\"><div class=\"tooltip\"><div class=\"inner hidden\">" + this.description + "</div></div>" + this.title + "</button>";
                 }
             };
 
@@ -203,13 +196,30 @@
 
             // filters down to just subcategories
             // ie: targets not years
-            data.cat = function () {
+            data.catTitle = function () {
                 if (this.parent) {
                     return this.title;
                 }
             };
 
-            rbvost.renderView(data, "campaign-list.html", ".campaign-list-view");
+            data.catSlug = function () {
+                if (this.parent) {
+                    return this.slug;
+                }
+            };
+
+            var afterRender = function () {
+                $(".isotope-container").isotope();
+            };
+
+            rbvost.renderView(data, "campaign-list.html", ".campaign-list-view", afterRender);
+        },
+
+        campaignsShouldFilter: function (e) {
+            e.preventDefault();
+
+            var query = $(e.currentTarget).data("filter");
+            $(".isotope-container").isotope({ filter: query });
         },
 
 
