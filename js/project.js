@@ -5,7 +5,7 @@
 
         siteurl:       "http://127.0.0.1:8080/wordpress/",
         templateurl:   "http://127.0.0.1:8080/wordpress/wp-content/themes/rbvost/templates/",
-        currentPage:   "campaign",
+        currentView:   "campaign",
         currentYear:   new Date().getFullYear(),
         dateRange:     { years: [] },
         cache:         {},
@@ -68,7 +68,7 @@
             })
             .done(function (data) {
                 rbvost.cache = data;
-                rbvost.router(rbvost.currentPage);
+                rbvost.router(rbvost.currentView);
             })
             .fail(function () {
                 alert("Sorry, there is currently an error fetching the content.");
@@ -82,25 +82,28 @@
 
 
         bindUIActions: function () {
+            // App Menu
             $("[data-navigate]").on("click", function (e) { rbvost.navigate(e); });
             $("body").on("change", "#year-selector", function (e) { rbvost.yearShouldChange(e); });
+
+            // Campaigns View
             $("body").on("click", ".campaign-filters button", function (e) { rbvost.campaignsShouldFilter(e); });
         },
 
-        router: function (page) {
+        router: function (view) {
             $(".switch-view").hide();
 
-            if (page === "campaign") {
+            if (view === "campaign") {
                 rbvost.renderCampaignFilters();
                 rbvost.renderCampaignList();
             }
 
-            if (page === "calendar") {
+            if (view === "calendar") {
                 rbvost.renderCalendarFilters();
                 rbvost.renderCalendar();
             }
 
-            rbvost.currentPage = page;
+            rbvost.currentView = view;
         },
 
         renderView: function (data, template, el, callback) {
@@ -120,11 +123,8 @@
         },
 
         windowResized: function () {
-            console.log("Resized");
-        },
-
-        windowScrolled: function () {
-            console.log("Scrolled");
+            // retrigger the isotope layout engine
+            $(rbvost.isotopeEl).isotope("reLayout");
         },
 
         setAppHeight: function () {
@@ -302,7 +302,5 @@
     $(window).load(function () { rbvost.windowLoaded(); });
     // Window Resized (smart debounced event)
     $(window).bind("debouncedresize", function () { rbvost.windowResized(); });
-    // Window Scrolled
-    $(window).on("scroll", function () { rbvost.windowScrolled(); });
 
 } (jQuery));
