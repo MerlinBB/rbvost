@@ -215,18 +215,25 @@ textarea:focus {
         margin:0;
         padding:0;
         background:#ccc;
-        float:left;
     }
     .month-name,
+    .notaday,
     .day {
         float:left;
         box-shadow:0 0 0 1px #aaa;
         border: 1px solid #aaa;
         text-align:center;
-        &.event { background:black; }
+        font-size:12px;
+        &.event { background:#fff; }
     }
-    .month-name { width:50px; }
-    .day { width:20px; }
+    .month-name {
+        width:8.8235%;
+        text-align:left;
+        font-weight:bold;
+        padding-left:1em;
+    }
+    .notaday,
+    .day { width:2.9410%; }
     .empty { display:none; }
 }
 

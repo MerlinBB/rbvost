@@ -262,10 +262,15 @@
 
             });
 
+            // If a clndr instance already exists we can just update it
             if (rbvost.calendar) {
+
                 rbvost.calendar.setEvents(calendarEvents);
                 rbvost.calendar.setYear(rbvost.currentYear);
+
                 $(".calendar-view").fadeIn("fast");
+
+            // if not let's grab the template and render it out
             } else {
 
                 $.get(rbvost.templateurl + "calendar.html", function (calendarTemplate) {

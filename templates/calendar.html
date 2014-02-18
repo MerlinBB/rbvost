@@ -14,6 +14,15 @@
                     <% }); %>
                 </div>
             </li>
-        <% }); %>
+        <% });
+            var daysToBeAdded = 31;
+            _.each(oneMonth.days, function(day) {
+                if (day.date) { daysToBeAdded-- }
+            });
+            while (daysToBeAdded > 0) { %>
+                <li class="notaday">X</li>
+                <% daysToBeAdded--;
+            }
+        %>
     </ul>
 <% }); %>
