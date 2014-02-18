@@ -10,6 +10,7 @@
         dateRange:     { years: [] },
         cache:         {},
         calendar:      undefined,
+        isotopeEl:     ".campaigns-container",
 
         init: function () {
             this.setLoginForm();
@@ -83,7 +84,7 @@
         bindUIActions: function () {
             $("[data-navigate]").on("click", function (e) { rbvost.navigate(e); });
             $("body").on("change", "#year-selector", function (e) { rbvost.yearShouldChange(e); });
-            $("body").on("click", ".filters-container button", function (e) { rbvost.campaignsShouldFilter(e); });
+            $("body").on("click", ".campaign-filters button", function (e) { rbvost.campaignsShouldFilter(e); });
         },
 
         router: function (page) {
@@ -210,7 +211,9 @@
             };
 
             var afterRender = function () {
-                $(".isotope-container").isotope();
+                $(rbvost.isotopeEl).isotope({
+
+                });
             };
 
             rbvost.renderView(data, "campaign-list.html", ".campaign-list-view", afterRender);
@@ -220,7 +223,7 @@
             e.preventDefault();
 
             var query = $(e.currentTarget).data("filter");
-            $(".isotope-container").isotope({ filter: query });
+            $(rbvost.isotopeEl).isotope({ filter: query });
         },
 
 

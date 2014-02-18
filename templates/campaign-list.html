@@ -1,12 +1,14 @@
-<div class="isotope-container">
+<div class="campaigns-container">
     {{#posts}}
-        <div class="item {{#categories}} {{catSlug}} {{/categories}}">
-            <h4>{{title}}</h4>
-            <p>
-                {{#categories}}
-                    {{catTitle}}
-                {{/categories}}
-            </p>
+        <div class="campaign {{#categories}} {{catSlug}} {{/categories}}">
+            <div class="inner">
+                <h4>{{title}}</h4>
+                <p>
+                    {{#categories}}
+                        {{catTitle}}
+                    {{/categories}}
+                </p>
+            </div>
         </div>
     {{/posts}}
 </div>

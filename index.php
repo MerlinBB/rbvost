@@ -4,7 +4,7 @@
         if ( is_user_logged_in() ) { ?>
 
             <div id="app" class="container">
-                <nav>
+                <nav class="app-menu">
                     <div class="year-selector-view fl"></div>
                     <button data-navigate="campaign">Campaigns</button>
                     <button data-navigate="calendar">Calendar</button>
