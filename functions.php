@@ -10,8 +10,7 @@
     // Add ACF content to JSON API
     add_filter('json_api_encode', 'json_api_encode_acf');
 
-    function json_api_encode_acf($response)
-    {
+    function json_api_encode_acf($response) {
         if (isset($response['posts'])) {
             foreach ($response['posts'] as $post) {
                 json_api_add_acf($post); // Add specs to each post
@@ -24,13 +23,12 @@
         return $response;
     }
 
-    function json_api_add_acf(&$post)
-    {
+    function json_api_add_acf(&$post) {
         $post->acf = get_fields($post->id);
     }
 
 
-    // Stop WordPress spitting out RedBull confidential stuff in feeds
+    // Stop WordPress spitting out confidential stuff in feeds
     remove_action( 'wp_head', 'feed_links_extra', 3 ); // extra feeds such as category feeds
     remove_action( 'wp_head', 'feed_links', 2 ); // general feeds: Post and Comment Feed
     remove_action( 'wp_head', 'rsd_link'); // link to the Really Simple Discovery service endpoint, EditURI link
@@ -55,12 +53,10 @@
     // if login is incorrect, stop users going to the admin section
     add_filter('login_redirect', '_catch_login_error', 10, 3);
 
-    function _catch_login_error($redir1, $redir2, $wperr_user)
-    {
+    function _catch_login_error($redir1, $redir2, $wperr_user) {
         if(!is_wp_error($wperr_user) || !$wperr_user->get_error_code()) return $redir1;
 
-        switch($wperr_user->get_error_code())
-        {
+        switch($wperr_user->get_error_code()) {
             case 'incorrect_password':
             case 'empty_password':
             case 'invalid_username':

@@ -1,14 +1,11 @@
 <div class="campaigns-container">
-    {{#posts}}
-        <div class="campaign {{#categories}} {{catSlug}} {{/categories}}">
+    {{#campaigns}}
+        <div class="campaign {{targetSlug}}">
             <div class="inner">
-                <h4>{{title}}</h4>
-                <p>
-                    {{#categories}}
-                        {{catTitle}}
-                    {{/categories}}
-                </p>
+                <h4 class="title">{{title}}</h4>
+                <h6 class="title subtitle">{{targetName}}</h6>
+                <p class="description">{{description}}</p>
             </div>
         </div>
-    {{/posts}}
+    {{/campaigns}}
 </div>

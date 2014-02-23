@@ -32,7 +32,14 @@
 
 </head>
 
-<body <?php body_class(); ?>>
+<?php
+    // pull in a random background image
+    $rows = get_field('background_image', 'option'); // get all the images
+    $rand_row = $rows[ array_rand( $rows ) ]; // get random row
+    $rand_image = $rand_row['image']; // get image from row
+?>
+
+<body <?php body_class(); ?> style="background-image:url(<?php echo $rand_image; ?>);">
 
 <?php include("inc/redbullheader.html"); ?>
 

@@ -20,7 +20,6 @@
         },
 
         init: function () {
-            this.setLoginForm();
             this.checkLoginError();
             this.setAppHeight();
             this.bindUIActions();
@@ -173,6 +172,9 @@
         },
 
         navigate: function (e) {
+            $("button[data-navigate]").removeClass("current");
+            $(e.currentTarget).addClass("current");
+
             var destination = $(e.currentTarget).data("navigate");
             rbvost.router(destination);
         },
@@ -182,11 +184,6 @@
         // Login View
         // -----------------------------------------------------------------------------------------
 
-
-        setLoginForm: function () {
-            $("#user_login").attr("placeholder", "Username");
-            $("#user_pass").attr("placeholder", "Password");
-        },
 
         checkLoginError: function () {
             var querystring = window.location.href.slice(window.location.href.indexOf("?") + 1);
@@ -227,28 +224,32 @@
 
         renderCampaignList: function () {
             var data = rbvost.cache;
+            var viewData = { campaigns: [] };
 
-            // filters down to just subcategories
-            // ie: targets not years
-            data.catTitle = function () {
-                if (this.parent) {
-                    return this.title;
-                }
-            };
+            _.each(data.posts, function (post) {
+                var campaign = {};
 
-            data.catSlug = function () {
-                if (this.parent) {
-                    return this.slug;
-                }
-            };
+                // get target + slug
+                _.each(post.categories, function (category) {
+                    if (category.parent) {
+                        campaign.targetName = category.title;
+                        campaign.targetSlug = category.slug;
+                    }
+                });
+
+                campaign.title = post.title;
+                campaign.description = post.acf.campaign_description;
+
+                viewData.campaigns.push(campaign);
+            });
+
+            console.log(viewData);
 
             var afterRender = function () {
-                $(rbvost.isotopeEl).isotope({
-
-                });
+                $(rbvost.isotopeEl).isotope();
             };
 
-            rbvost.renderView(data, "campaign-list.html", ".campaign-list-view", afterRender);
+            rbvost.renderView(viewData, "campaign-list.html", ".campaign-list-view", afterRender);
         },
 
         campaignsShouldFilter: function (e) {
@@ -381,6 +382,7 @@
             // now we can show all events, and then hide appropriate ones
             var clndr = $(".clndr");
             $(clndr).find(".day").removeClass("hidden-event");
+
             // loop through our filters and if they're not set to show all
             // find events that don't contain the fiter term and hide them
             _.each(rbvost.calendarFilters, function (filter) {
