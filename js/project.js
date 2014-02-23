@@ -3,8 +3,8 @@
 
     var rbvost = {
 
-        siteurl:         "http://127.0.0.1:8080/wordpress/",
-        templateurl:     "http://127.0.0.1:8080/wordpress/wp-content/themes/rbvost/templates/",
+        siteurl:         "http://merlindev.co.uk/studentteam/",
+        templateurl:     "http://merlindev.co.uk/studentteam/wp-content/themes/rbvost/templates/",
         currentView:     "campaign",
         currentYear:     new Date().getFullYear(),
         dateRange:       { years: [] },
