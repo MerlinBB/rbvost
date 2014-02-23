@@ -5,12 +5,11 @@
         <li class="month-name"><%= oneMonth.month.format("MMM") %></li>
         <% _.each(oneMonth.days, function(day) { %>
             <li
-                class="<%= day.classes %>"
+                class="<%= day.classes %>
                 <% _.each(day.events, function(event) { %>
-                    data-campaign="<%= event.campaign %>"
-                    data-target="<%= event.target %>"
-                    data-region="<%= event.region %>"
+                    <%= event.campaign %> <%= event.target %> <%= event.region %>
                 <% }); %>
+                "
             >
                 <%= day.day %>
                 <div class="hidden">

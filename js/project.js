@@ -3,14 +3,21 @@
 
     var rbvost = {
 
-        siteurl:       "http://127.0.0.1:8080/wordpress/",
-        templateurl:   "http://127.0.0.1:8080/wordpress/wp-content/themes/rbvost/templates/",
-        currentView:   "campaign",
-        currentYear:   new Date().getFullYear(),
-        dateRange:     { years: [] },
-        cache:         {},
-        calendar:      undefined,
-        isotopeEl:     ".campaigns-container",
+        siteurl:         "http://127.0.0.1:8080/wordpress/",
+        templateurl:     "http://127.0.0.1:8080/wordpress/wp-content/themes/rbvost/templates/",
+        currentView:     "campaign",
+        currentYear:     new Date().getFullYear(),
+        dateRange:       { years: [] },
+        cache:           {},
+        calendar:        undefined,
+        isotopeEl:       ".campaigns-container",
+        // defaut setting to show all
+        // will update through calendarShouldFilter()
+        calendarFilters: {
+            targets: "*",
+            campaigns: "*",
+            regions: "*"
+        },
 
         init: function () {
             this.setLoginForm();
@@ -117,6 +124,9 @@
 
             // Campaigns View
             $("body").on("click", ".campaign-filters button", function (e) { rbvost.campaignsShouldFilter(e); });
+
+            // Calendar View
+            $("body").on("click", ".calendar-filters button", function (e) { rbvost.calendarShouldFilter(e); });
         },
 
         router: function (view) {
@@ -148,7 +158,7 @@
         },
 
         windowLoaded: function () {
-            console.log("Loaded");
+            //
         },
 
         windowResized: function () {
@@ -242,8 +252,11 @@
         },
 
         campaignsShouldFilter: function (e) {
-            e.preventDefault();
+            // toggle styling
+            $(e.currentTarget).siblings().removeClass("active");
+            $(e.currentTarget).addClass("active");
 
+            // run the isotope filters
             var query = $(e.currentTarget).data("filter");
             $(rbvost.isotopeEl).isotope({ filter: query });
         },
@@ -353,6 +366,28 @@
                 });
 
             }
+        },
+
+        calendarShouldFilter: function (e) {
+            // first lets toggle the styling
+            $(e.currentTarget).siblings().removeClass("active");
+            $(e.currentTarget).addClass("active");
+
+            // then we update our calendar settings object
+            var type = $(e.currentTarget).data("type");
+            var value = $(e.currentTarget).data("filter");
+            rbvost.calendarFilters[type] = value;
+
+            // now we can show all events, and then hide appropriate ones
+            var clndr = $(".clndr");
+            $(clndr).find(".day").removeClass("hidden-event");
+            // loop through our filters and if they're not set to show all
+            // find events that don't contain the fiter term and hide them
+            _.each(rbvost.calendarFilters, function (filter) {
+                if (filter !== "*") {
+                    $(clndr).find(".event:not(" + filter + ")").addClass("hidden-event");
+                }
+            });
         }
 
     };

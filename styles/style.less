@@ -191,16 +191,29 @@ a:active {
 
 
 //----------------------------------------------------------------------------//
+//  Filters
+//----------------------------------------------------------------------------//
+
+
+.filters {
+    margin:0 0 @space 0;
+    button {
+        background:red;
+        border:none;
+        &:focus { outline:none; }
+        // our active class for current filter
+        &.active { background:blue; }
+    }
+}
+
+
+//----------------------------------------------------------------------------//
 //  Campaigns
 //----------------------------------------------------------------------------//
 
 
-.campaign-filters {
-    margin-bottom:@space;
-}
-
 .campaigns-container {
-    margin: (-@space/2) (-@space/2) @space (-@space/2);
+    margin: (-@space/2) (-@space/2) (@space*4) (-@space/2);
     .campaign {
         padding:(@space/2);
         width:33.3333%;
@@ -218,6 +231,7 @@ a:active {
 
 
 .clndr {
+    margin-bottom:(@space*4);
     .month {
         list-style:none;
         .cf();
@@ -233,7 +247,11 @@ a:active {
         border: 1px solid #aaa;
         text-align:center;
         font-size:12px;
-        &.event { background:#fff; }
+        transition:background 0.4s;
+        &.event {
+            background:#fff;
+            &.hidden-event { background:#ccc; }
+        }
     }
     .month-name {
         width:8.8235%;

@@ -1,9 +1,9 @@
 <div class="filters calendar-filters">
     <div class="filter-row">
-        <button data-filter="*">All</button>
+        <button class="active" data-filter="*" data-type="targets">All</button>
         {{#targets}}
             {{#targets}}
-            <button data-filter=".{{slug}}">
+            <button data-filter=".{{slug}}" data-type="targets">
                 <div class="tooltip">
                     <div class="inner hidden">{{description}}</div>
                 </div>
@@ -14,18 +14,18 @@
     </div>
 
     <div class="filter-row">
-        <button data-filter="*">All</button>
+        <button class="active" data-filter="*" data-type="campaigns">All</button>
         {{#campaigns}}
-            <button data-filter=".{{slug}}">
+            <button data-filter=".{{slug}}" data-type="campaigns">
                 {{title}}
             </button>
         {{/campaigns}}
     </div>
 
     <div class="filter-row">
-        <button data-filter="*">All</button>
+        <button class="active" data-filter="*" data-type="regions">All</button>
         {{#regions}}
-            <button data-filter=".{{slug}}">
+            <button data-filter=".{{slug}}" data-type="regions">
                 {{title}}
             </button>
         {{/regions}}
