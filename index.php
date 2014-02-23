@@ -23,7 +23,7 @@
         <?php } else { ?>
 
             <div class="login-container">
-                <form name="loginform" id="loginform" action="http://127.0.0.1:8080/wordpress/wp-login.php" method="post" autocomplete="off">
+                <form name="loginform" id="loginform" action="<?php echo home_url('/wp-login.php'); ?>" method="post" autocomplete="off">
 
                     <label for="user_login">Username</label>
                     <input type="text" name="log" id="user_login" class="text-input username" placeholder="Username"/>
@@ -36,7 +36,7 @@
                     </div>
 
                     <input type="submit" name="wp-submit" id="wp-submit" class="login-submit" value="Login" />
-                    <input type="hidden" name="redirect_to" value="http://127.0.0.1:8080/wordpress/" />
+                    <input type="hidden" name="redirect_to" value="<?php echo home_url('/'); ?>" />
 
                 </form>
             </div>
