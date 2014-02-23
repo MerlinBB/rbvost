@@ -1,11 +1,13 @@
-<div class="campaign-filters">
-    <button data-filter="*">All</button>
-    {{#targets}}
-        <button data-filter=".{{slug}}">
-            <div class="tooltip">
-                <div class="inner hidden">{{description}}</div>
-            </div>
-            {{title}}
-        </button>
-    {{/targets}}
+<div class="filters campaign-filters">
+    <div class="filter-row">
+        <button data-filter="*">All</button>
+        {{#targets}}
+            <button data-filter=".{{slug}}">
+                <div class="tooltip">
+                    <div class="inner hidden">{{description}}</div>
+                </div>
+                {{title}}
+            </button>
+        {{/targets}}
+    </div>
 </div>

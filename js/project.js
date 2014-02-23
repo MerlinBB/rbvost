@@ -75,6 +75,35 @@
             });
         },
 
+        getUniqueTargets: function () {
+            var data = rbvost.cache;
+            var uniqueTargets = { targets: [] };
+
+            // for each post (year), go through all categories and find all sub categories (targets)
+            // then check if this already exists in our unique collection
+            // if not, push it in
+            _.each(data.posts, function (post) {
+                _.each(post.categories, function (category) {
+                    if (category.parent) {
+
+                        var exists = _.findWhere(uniqueTargets.targets, { slug: category.slug });
+
+                        if (!exists) {
+                            var target = {};
+                            target.slug = category.slug;
+                            target.title = category.title;
+                            target.description = category.description;
+
+                            uniqueTargets.targets.push(target);
+                        }
+
+                    }
+                });
+            });
+
+            return uniqueTargets;
+        },
+
 
         // -----------------------------------------------------------------------------------------
         // Common Functions
@@ -181,29 +210,7 @@
 
         renderCampaignFilters: function () {
             var data = rbvost.cache;
-            var uniqueTargets = { targets: [] };
-
-            // for each post (year), go through all categories and find all sub categories (targets)
-            // then check if this already exists in our unique collection
-            // if not, push it in
-            _.each(data.posts, function (post) {
-                _.each(post.categories, function (category) {
-                    if (category.parent) {
-
-                        var exists = _.findWhere(uniqueTargets.targets, { slug: category.slug });
-
-                        if (!exists) {
-                            var target = {};
-                            target.slug = category.slug;
-                            target.title = category.title;
-                            target.description = category.description;
-
-                            uniqueTargets.targets.push(target);
-                        }
-
-                    }
-                });
-            });
+            var uniqueTargets = rbvost.getUniqueTargets();
 
             rbvost.renderView(uniqueTargets, "campaign-filters.html", ".campaign-filters-view");
         },
@@ -250,15 +257,39 @@
         renderCalendarFilters: function () {
             var data = rbvost.cache;
 
-            // filters down to just subcategories
-            // ie: targets not years
-            data.catDesc = function () {
-                if (this.parent) {
-                    return "<h2>" + this.title + "</h2><p>" + this.description + "</p>";
-                }
+            var filters = {
+                targets: rbvost.getUniqueTargets(),
+                campaigns: [],
+                regions: []
             };
 
-            rbvost.renderView(data, "calendar-filters.html", ".calendar-filters-view");
+            // get campaigns
+            _.each(data.posts, function (post) {
+                var campaign = {};
+                campaign.title = post.title;
+                campaign.slug = post.slug;
+
+                filters.campaigns.push(campaign);
+            });
+
+            // get regions
+            _.each(data.posts, function (post) {
+                var exists = _.findWhere(filters.regions, { slug: post.acf.region });
+
+                if (!exists) {
+                    var region = {};
+                    region.slug = post.acf.region;
+
+                    if (region.slug === "national") { region.title = "National"; }
+                    if (region.slug === "london") { region.title = "London"; }
+                    if (region.slug === "north") { region.title = "North / Scotland"; }
+                    if (region.slug === "southwest") { region.title = "South West"; }
+
+                    filters.regions.push(region);
+                }
+            });
+
+            rbvost.renderView(filters, "calendar-filters.html", ".calendar-filters-view");
         },
 
         renderCalendar: function () {
@@ -266,6 +297,18 @@
             var calendarEvents = [];
 
             _.each(data.posts, function (post) {
+                // here we can grab stuff from the post which we can later insert into the event objects
+                var campaign = post.slug;
+                var region = post.acf.region;
+                var target;
+
+                // get the event target
+                _.each(post.categories, function (category) {
+                    if (category.parent) {
+                        target = category.slug;
+                    }
+                });
+
                 _.each(post.acf.events, function (event) {
                     // create event object
                     var thisEvent = {};
@@ -274,6 +317,9 @@
                     thisEvent.prettyDate = moment(event.event_date).format("MMM Do YYYY");
                     thisEvent.location = event.event_location;
                     thisEvent.name = event.event_name;
+                    thisEvent.campaign = campaign;
+                    thisEvent.region = region;
+                    thisEvent.target = target;
                     // push results to hoisted array
                     calendarEvents.push(thisEvent);
                 });

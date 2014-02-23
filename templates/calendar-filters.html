@@ -1,1 +1,33 @@
-this is the calendar filters
+<div class="filters calendar-filters">
+    <div class="filter-row">
+        <button data-filter="*">All</button>
+        {{#targets}}
+            {{#targets}}
+            <button data-filter=".{{slug}}">
+                <div class="tooltip">
+                    <div class="inner hidden">{{description}}</div>
+                </div>
+                {{title}}
+            </button>
+            {{/targets}}
+        {{/targets}}
+    </div>
+
+    <div class="filter-row">
+        <button data-filter="*">All</button>
+        {{#campaigns}}
+            <button data-filter=".{{slug}}">
+                {{title}}
+            </button>
+        {{/campaigns}}
+    </div>
+
+    <div class="filter-row">
+        <button data-filter="*">All</button>
+        {{#regions}}
+            <button data-filter=".{{slug}}">
+                {{title}}
+            </button>
+        {{/regions}}
+    </div>
+</div>
