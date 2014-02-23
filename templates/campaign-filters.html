@@ -1,8 +1,11 @@
 <div class="campaign-filters">
     <button data-filter="*">All</button>
-    {{#posts}}
-        {{#categories}}
-            {{{catButton}}}
-        {{/categories}}
-    {{/posts}}
+    {{#targets}}
+        <button data-filter="{{slug}}">
+            <div class="tooltip">
+                <div class="inner hidden">{{description}}</div>
+            </div>
+            {{title}}
+        </button>
+    {{/targets}}
 </div>

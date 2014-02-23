@@ -181,16 +181,31 @@
 
         renderCampaignFilters: function () {
             var data = rbvost.cache;
+            var uniqueTargets = { targets: [] };
 
-            // filters down to just subcategories
-            // ie: targets not years
-            data.catButton = function () {
-                if (this.parent) {
-                    return "<button data-filter=\"." + this.slug + "\"><div class=\"tooltip\"><div class=\"inner hidden\">" + this.description + "</div></div>" + this.title + "</button>";
-                }
-            };
+            // for each post (year), go through all categories and find all sub categories (targets)
+            // then check if this already exists in our unique collection
+            // if not, push it in
+            _.each(data.posts, function (post) {
+                _.each(post.categories, function (category) {
+                    if (category.parent) {
 
-            rbvost.renderView(data, "campaign-filters.html", ".campaign-filters-view");
+                        var exists = _.findWhere(uniqueTargets.targets, { slug: category.slug });
+
+                        if (!exists) {
+                            var target = {};
+                            target.slug = category.slug;
+                            target.title = category.title;
+                            target.description = category.description;
+
+                            uniqueTargets.targets.push(target);
+                        }
+
+                    }
+                });
+            });
+
+            rbvost.renderView(uniqueTargets, "campaign-filters.html", ".campaign-filters-view");
         },
 
         renderCampaignList: function () {
