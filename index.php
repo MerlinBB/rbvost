@@ -5,6 +5,9 @@
 
             <div class="container">
                 <div id="app" class="app">
+
+                    <div class="alert hidden">Sorry, you've entered an incorrect username or password.</div>
+
                     <nav class="app-menu cf">
                         <div class="year-selector-view fl"></div>
                         <button class="menu-item current fl" data-navigate="campaign">Campaigns</button>

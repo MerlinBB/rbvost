@@ -266,6 +266,7 @@ a:active {
         border-radius:2px;
         transition:all 0.2s;
         .futura();
+        font-size:12px;
         color:@color-text;
         padding:6px 10px 4px;
         margin-bottom:2px;
@@ -274,6 +275,40 @@ a:active {
         &.active {
             background:@color-appgrey-dark;
             box-shadow:0 1px 2px rgba(0,0,0,0), inset 0 1px 2px rgba(0,0,0,0.2);
+        }
+        &.has-tooltip {
+            position:relative;
+            padding-left:30px;
+            .tooltip {
+                .position(absolute, 4px, auto, auto, 8px);
+                .square(16px);
+                background:red;
+                .inner {
+                    .position(absolute, 25px, auto, auto, -10px);
+                    font-family:sans-serif;
+                    font-weight:normal;
+                    font-size:12px;
+                    text-transform:none;
+                    text-align:left;
+                    z-index:3;
+                    background:#000;
+                    background:rgba(0,0,0,0.8);
+                    padding:(@space/2);
+                    color:#fff;
+                    display:none;
+                    &::before {
+                        content:'';
+                        .position(absolute, -5px, auto, auto, 13px);
+                        display:block;
+                        width:0;
+                        height:0;
+                        border-left:5px solid transparent;
+                        border-right:5px solid transparent;
+                        border-bottom:5px solid #000;
+                        border-bottom:5px solid rgba(0,0,0,0.8);
+                    }
+                }
+            }
         }
     }
 }

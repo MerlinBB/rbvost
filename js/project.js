@@ -123,6 +123,7 @@
 
             // Campaigns View
             $("body").on("click", ".campaign-filters button", function (e) { rbvost.campaignsShouldFilter(e); });
+            $("body").on("click", ".tooltip", function (e) { rbvost.tooltipShouldToggle(e); });
 
             // Calendar View
             $("body").on("click", ".calendar-filters button", function (e) { rbvost.calendarShouldFilter(e); });
@@ -168,7 +169,7 @@
 
         setAppHeight: function () {
             // set a min height minus the guessed height for redbull global header / footer
-            var appHeight = $(window).height() - 186 + "px";
+            var appHeight = $(window).height() - 286 + "px";
             $("#app").css({ "min-height" : appHeight });
         },
 
@@ -252,8 +253,6 @@
                 viewData.campaigns.push(campaign);
             });
 
-            console.log(viewData);
-
             var afterRender = function () {
                 $(rbvost.isotopeEl).isotope();
             };
@@ -266,9 +265,17 @@
             $(e.currentTarget).siblings().removeClass("active");
             $(e.currentTarget).addClass("active");
 
+            // hide any active tooltips
+            $(".tooltip .inner").hide();
+
             // run the isotope filters
             var query = $(e.currentTarget).data("filter");
             $(rbvost.isotopeEl).isotope({ filter: query });
+        },
+
+        tooltipShouldToggle: function (e) {
+            e.stopImmediatePropagation();
+            $(e.currentTarget).find(".inner").toggle();
         },
 
 
