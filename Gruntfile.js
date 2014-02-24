@@ -69,6 +69,7 @@ module.exports = function (grunt) {
                     "js/bower/moment/moment.js",
                     "js/bower/isotope/jquery.isotope.js",
                     "js/bower/clndr/src/clndr.js",
+                    "js/bower/flexslider/jquery.flexslider.js",
                     "js/project.js"
                 ],
                 dest: "js/production.js"

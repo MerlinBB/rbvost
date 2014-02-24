@@ -302,6 +302,7 @@
 
         renderCalendarFilters: function () {
             var data = rbvost.cache;
+            console.log(data);
 
             var filters = {
                 targets: rbvost.getUniqueTargets(),

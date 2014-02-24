@@ -15,7 +15,7 @@
     "empty-rules": true,
     "selector-max-approaching": true,
     "gradients": true,
-    "fallback-colors": true,
+    "fallback-colors": false,
     "font-sizes": false,
     "font-faces": true,
     "floats": true,

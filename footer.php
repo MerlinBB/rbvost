@@ -7,7 +7,7 @@
 </div>
 
 <?php
-    $production = false;
+    $production = true;
     $theme = get_template_directory_uri();
 
     // if we're in production mode, include minified concatenated script
@@ -25,6 +25,7 @@
         echo '<script src ="' . $theme . '/js/bower/moment/moment.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/isotope/jquery.isotope.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/clndr/src/clndr.js"></script>';
+        echo '<script src ="' . $theme . '/js/bower/flexslider/jquery.flexslider.js"></script>';
         echo '<script src ="' . $theme . '/js/project.js"></script>';
 
     }
