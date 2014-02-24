@@ -1,7 +1,13 @@
 <?php include("inc/redbullfooter.html"); ?>
 
+<div id="modal" class="modal">
+    <div class="container">
+        <div class="modal-view"></div>
+    </div>
+</div>
+
 <?php
-    $production = true;
+    $production = false;
     $theme = get_template_directory_uri();
 
     // if we're in production mode, include minified concatenated script

@@ -1,0 +1,11 @@
+<button class="close-modal">X</button>
+<% _.each(event, function(event) { %>
+    <%- event.campaign %>
+    <%- event.date %>
+    <%- event.id %>
+    <%- event.location %>
+    <%- event.name %>
+    <%- event.prettyDate %>
+    <%- event.region %>
+    <%- event.target %>
+<% }) %>

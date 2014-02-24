@@ -133,6 +133,8 @@
             $("body").on("click", ".calendar-filters button", function (e) { rbvost.calendarShouldFilter(e); });
             $("body").on("click", ".clndr .day.event", function (e) { rbvost.eventPopupShouldToggle(e); });
             $("body").on("click", ".clndr .close-popup", function (e) { rbvost.eventPopupShouldClose(e); });
+            $("body").on("click", ".clndr .read-more", function (e) { rbvost.calendarOverlayShouldRender(e); });
+            $("body").on("click", ".close-modal", function () { rbvost.modalShouldClose(); });
         },
 
         router: function (view) {
@@ -333,7 +335,7 @@
                 }
             });
 
-            rbvost.renderView(filters, "calendar-filters.html", ".calendar-filters-view");
+            rbvost.renderView(filters, "calendar-filters.html", ".calendar-filters-view", false);
         },
 
         renderCalendar: function () {
@@ -364,11 +366,15 @@
                     thisEvent.campaign = campaign;
                     thisEvent.region = region;
                     thisEvent.target = target;
+                    thisEvent.id = "" + (new Date().getTime()) + (Math.floor(Math.random() * 999999) + 1);
                     // push results to hoisted array
                     calendarEvents.push(thisEvent);
                 });
-
             });
+
+            // now we have added our unique id to each event
+            // we can cache the events object so we can use it later for the event popup
+            rbvost.cache.events = calendarEvents;
 
             // If a clndr instance already exists we can just update it
             if (rbvost.calendar) {
@@ -437,6 +443,24 @@
         eventPopupShouldClose: function (e) {
             e.stopImmediatePropagation();
             $(e.currentTarget).parent().hide();
+        },
+
+        calendarOverlayShouldRender: function (e) {
+            var events = rbvost.cache.events;
+            var eventId = $(e.currentTarget).data("id");
+            var thisEvent = { event: [] };
+
+            thisEvent.event.push(_.findWhere(events, { id: eventId }));
+
+            var afterRender = function () {
+                $("#modal").fadeIn("fast");
+            };
+
+            rbvost.renderView(thisEvent, "modal.html", ".modal-view", afterRender);
+        },
+
+        modalShouldClose: function () {
+            $("#modal").fadeOut("fast");
         }
 
     };
