@@ -29,6 +29,10 @@
                 rbvost.buildMenu();
                 rbvost.getContent();
             }
+
+            // this seems to fix some bizare bug with the webfont thinking it's loaded even when it hasn't
+            // it causes a refresh and seems to then make it load properly
+            $("body").css({ "text-rendering" : "auto" });
         },
 
 
