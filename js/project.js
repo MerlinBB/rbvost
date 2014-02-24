@@ -131,6 +131,8 @@
 
             // Calendar View
             $("body").on("click", ".calendar-filters button", function (e) { rbvost.calendarShouldFilter(e); });
+            $("body").on("click", ".clndr .day.event", function (e) { rbvost.eventPopupShouldToggle(e); });
+            $("body").on("click", ".clndr .close-popup", function (e) { rbvost.eventPopupShouldClose(e); });
         },
 
         router: function (view) {
@@ -279,7 +281,15 @@
 
         tooltipShouldToggle: function (e) {
             e.stopImmediatePropagation();
-            $(e.currentTarget).find(".inner").toggle();
+            var tooltip = $(e.currentTarget).find(".inner");
+
+            if ($(tooltip).is(":visible")) {
+                $(tooltip).hide();
+            } else {
+                // hide any active tooltips
+                $(".tooltip .inner").hide();
+                $(tooltip).show();
+            }
         },
 
 
@@ -410,6 +420,23 @@
                     $(clndr).find(".event:not(" + filter + ")").addClass("hidden-event");
                 }
             });
+        },
+
+        eventPopupShouldToggle: function (e) {
+            var popup = $(e.currentTarget).find(".popup");
+
+            if ($(popup).is(":visible")) {
+                $(popup).hide();
+            } else {
+                // hide any active popups
+                $(".clndr .popup").hide();
+                $(popup).show();
+            }
+        },
+
+        eventPopupShouldClose: function (e) {
+            e.stopImmediatePropagation();
+            $(e.currentTarget).parent().hide();
         }
 
     };

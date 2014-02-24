@@ -10,11 +10,15 @@
                 "
             >
                 <%- day.day %>
-                <div class="hidden">
+                <div class="popup">
+                    <button class="close-popup">X</button>
                     <% _.each(day.events, function(event) { %>
-                        <%- event.name %>
-                        <%- event.prettyDate %>
-                        <%- event.location %>
+                    <div class="event">
+                        <div class="event-date"><%- event.prettyDate %></div>
+                        <div class="event-name"><%- event.name %></div>
+                        <div class="event-location"><%- event.location %></div>
+                        <button class="read-more">Read More</button>
+                    </div>
                     <% }); %>
                 </div>
             </li>

@@ -155,7 +155,6 @@ a:active {
     }
     form {
         padding-top:10px;
-
         .text-input {
             width:100%;
             box-sizing:border-box;
@@ -173,7 +172,6 @@ a:active {
             &.username { border-bottom:1px solid #eee; }
         }
         label { display:none; }
-
         .login-remember {
             margin:@space 0;
             label {
@@ -189,7 +187,6 @@ a:active {
             border:none;
             box-shadow:0 1px 2px 1px rgba(0,0,0,0.2), inset 0 1px 2px 1px rgba(0,0,0,0);
             transition:all 0.2s;
-
             .futura();
             color:@color-brandyellow;
             font-size:14px;
@@ -374,9 +371,14 @@ a:active {
         text-align:center;
         font-size:12px;
         transition:background 0.4s;
+        position:relative;
         &.event {
+            cursor:pointer;
             background:#fff;
-            &.hidden-event { background:#ccc; }
+            &.hidden-event {
+                background:#ccc;
+                cursor:auto;
+            }
         }
     }
     .month-name {
@@ -388,4 +390,30 @@ a:active {
     .notaday,
     .day { width:2.9410%; }
     .empty { display:none; }
+    .popup {
+        width:160px;
+        .position(absolute, 25px, 0, auto, auto);
+        font-family:sans-serif;
+        font-weight:normal;
+        font-size:12px;
+        text-transform:none;
+        text-align:left;
+        z-index:3;
+        background:#000;
+        background:rgba(0,0,0,0.8);
+        padding:(@space/2);
+        color:#fff;
+        display:none;
+        &::before {
+            content:'';
+            .position(absolute, -5px, 10px, auto, auto);
+            display:block;
+            width:0;
+            height:0;
+            border-left:5px solid transparent;
+            border-right:5px solid transparent;
+            border-bottom:5px solid #000;
+            border-bottom:5px solid rgba(0,0,0,0.8);
+        }
+    }
 }
