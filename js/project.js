@@ -3,8 +3,8 @@
 
     var rbvost = {
 
-        siteurl:         "http://merlindev.co.uk/studentteam/",
-        templateurl:     "http://merlindev.co.uk/studentteam/wp-content/themes/rbvost/templates/",
+        siteurl:         window.location.href,
+        templateurl:     window.location.href + "/wp-content/themes/rbvost/templates/",
         currentView:     "campaign",
         currentYear:     new Date().getFullYear(),
         dateRange:       { years: [] },
@@ -151,6 +151,7 @@
                 );
 
                 $(el).fadeIn("slow");
+                $("#app").css({ "background-image" : "none" });
 
                 if (callback) { callback(); }
             });
@@ -172,9 +173,14 @@
         },
 
         navigate: function (e) {
+            // Set spinner
+            $("#app").css({ "background-image" : "" });
+
+            // Toggle active state in menu
             $("button[data-navigate]").removeClass("current");
             $(e.currentTarget).addClass("current");
 
+            // Set current page and rerender
             var destination = $(e.currentTarget).data("navigate");
             rbvost.router(destination);
         },
@@ -204,8 +210,11 @@
         },
 
         yearShouldChange: function (e) {
-            rbvost.currentYear = $(e.currentTarget).val();
+            // Set spinner
+            $("#app").css({ "background-image" : "" });
+
             // Hit API for requested year, update cache and re-render
+            rbvost.currentYear = $(e.currentTarget).val();
             rbvost.getContent();
         },
 
