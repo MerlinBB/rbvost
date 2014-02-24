@@ -152,7 +152,7 @@
         renderView: function (data, template, el, callback) {
             $.get(rbvost.templateurl + template, function (template) {
                 $(el).html(
-                    Mustache.render(template, data)
+                    _.template(template, data)
                 );
 
                 $(el).fadeIn("slow");

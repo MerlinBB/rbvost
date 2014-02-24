@@ -1,13 +1,13 @@
 <div class="filters campaign-filters">
     <div class="filter-row">
         <button class="active" data-filter="*">All</button>
-        {{#targets}}
-            <button class="has-tooltip" data-filter=".{{slug}}">
+        <% _.each(targets, function (target) { %>
+            <button class="has-tooltip" data-filter=".<%- target.slug %>">
                 <div class="tooltip">
-                    <div class="inner">{{description}}</div>
+                    <div class="inner"><%- target.description %></div>
                 </div>
-                {{title}}
+                <%- target.title %>
             </button>
-        {{/targets}}
+        <% }); %>
     </div>
 </div>

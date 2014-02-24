@@ -1,11 +1,11 @@
 <div class="campaigns-container">
-    {{#campaigns}}
-        <div class="campaign {{targetSlug}}">
+    <% _.each(campaigns, function (campaign) { %>
+        <div class="campaign <%- campaign.targetSlug %>">
             <div class="inner">
-                <h4 class="title">{{title}}</h4>
-                <h6 class="title subtitle">{{targetName}}</h6>
-                <p class="description">{{description}}</p>
+                <h4 class="title"><%- campaign.title %></h4>
+                <h6 class="title subtitle"><%- campaign.targetName %></h6>
+                <p class="description"><%- campaign.description %></p>
             </div>
         </div>
-    {{/campaigns}}
+    <% }); %>
 </div>

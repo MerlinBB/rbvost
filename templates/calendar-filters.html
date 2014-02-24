@@ -1,33 +1,33 @@
 <div class="filters calendar-filters">
     <div class="filter-row">
         <button class="active" data-filter="*" data-type="targets">All</button>
-        {{#targets}}
-            {{#targets}}
-            <button data-filter=".{{slug}}" data-type="targets">
-                <div class="tooltip">
-                    <div class="inner hidden">{{description}}</div>
-                </div>
-                {{title}}
-            </button>
-            {{/targets}}
-        {{/targets}}
+        <% _.each(targets, function (targets) { %>
+            <% _.each(targets, function (target) { %>
+                <button data-filter=".<%- target.slug %>" data-type="targets">
+                    <div class="tooltip">
+                        <div class="inner hidden"><%- target.description %></div>
+                    </div>
+                    <%- target.title %>
+                </button>
+            <% }); %>
+        <% }); %>
     </div>
 
     <div class="filter-row">
         <button class="active" data-filter="*" data-type="campaigns">All</button>
-        {{#campaigns}}
-            <button data-filter=".{{slug}}" data-type="campaigns">
-                {{title}}
+        <% _.each(campaigns, function (campaign) { %>
+            <button data-filter=".<%- campaign.slug %>" data-type="campaigns">
+                <%- campaign.title %>
             </button>
-        {{/campaigns}}
+        <% }); %>
     </div>
 
     <div class="filter-row">
         <button class="active" data-filter="*" data-type="regions">All</button>
-        {{#regions}}
-            <button data-filter=".{{slug}}" data-type="regions">
-                {{title}}
+        <% _.each(regions, function (region) { %>
+            <button data-filter=".<%- region.slug %>" data-type="regions">
+                <%- region.title %>
             </button>
-        {{/regions}}
+        <% }); %>
     </div>
 </div>

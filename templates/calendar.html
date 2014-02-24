@@ -1,20 +1,20 @@
 <% _.each(months, function(oneMonth){ %>
     <ul class="month">
-        <li class="month-name"><%= oneMonth.month.format("MMM") %></li>
+        <li class="month-name"><%- oneMonth.month.format("MMM") %></li>
         <% _.each(oneMonth.days, function(day) { %>
             <li
-                class="<%= day.classes %>
+                class="<%- day.classes %>
                 <% _.each(day.events, function(event) { %>
-                    <%= event.campaign %> <%= event.target %> <%= event.region %>
+                    <%- event.campaign %> <%- event.target %> <%- event.region %>
                 <% }); %>
                 "
             >
-                <%= day.day %>
+                <%- day.day %>
                 <div class="hidden">
                     <% _.each(day.events, function(event) { %>
-                        <%= event.name %>
-                        <%= event.prettyDate %>
-                        <%= event.location %>
+                        <%- event.name %>
+                        <%- event.prettyDate %>
+                        <%- event.location %>
                     <% }); %>
                 </div>
             </li>
