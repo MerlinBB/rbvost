@@ -28,11 +28,17 @@
             <div class="login-container">
                 <form name="loginform" id="loginform" action="<?php echo home_url('/wp-login.php'); ?>" method="post" autocomplete="off">
 
-                    <label for="user_login">Username</label>
-                    <input type="text" name="log" id="user_login" class="text-input username" placeholder="Username"/>
+                    <div class="form-group">
+                        <label for="user_login">Username</label>
+                        <input type="text" name="log" id="user_login" class="text-input username" placeholder="Username"/>
+                        <i class="fa fa-user"></i>
+                    </div>
 
-                    <label for="user_pass">Password</label>
-                    <input type="password" name="pwd" id="user_pass" class="text-input password" placeholder="Password"/>
+                    <div class="form-group">
+                        <label for="user_pass">Password</label>
+                        <input type="password" name="pwd" id="user_pass" class="text-input password" placeholder="Password"/>
+                        <i class="fa fa-lock"></i>
+                    </div>
 
                     <div class="login-remember">
                         <label><input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember Me</label>

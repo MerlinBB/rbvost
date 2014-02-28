@@ -3,7 +3,7 @@
         <button class="active" data-filter="*">All</button>
         <% _.each(targets, function (target) { %>
             <button class="has-tooltip" data-filter=".<%- target.slug %>">
-                <div class="tooltip">
+                <div class="tooltip fa fa-info-circle">
                     <div class="inner"><%- target.description %></div>
                 </div>
                 <%- target.title %>

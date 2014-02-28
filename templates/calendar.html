@@ -11,14 +11,25 @@
             >
                 <%- day.day %>
                 <div class="popup">
-                    <button class="close-popup">X</button>
+                    <button class="close-popup">
+                        <i class="fa fa-lg fa-times-circle"></i>
+                    </button>
+
+                    <% var firstpass = true; %>
+
                     <% _.each(day.events, function(event) { %>
-                    <div class="event">
-                        <div class="event-date"><%- event.prettyDate %></div>
-                        <div class="event-name"><%- event.name %></div>
-                        <div class="event-location"><%- event.location %></div>
-                        <button class="read-more" data-id="<%- event.id %>">Read More</button>
-                    </div>
+                        <% if (firstpass) { %>
+                            <div class="event-date"><%- event.prettyDateShort %></div>
+                            <% firstpass = false; %>
+                        <% } %>
+
+                        <div class="event">
+                            <div class="event-name"><%- event.name %></div>
+                            <div class="event-location"><%- event.location %></div>
+                            <div class="cf">
+                                <button class="read-more fr" data-id="<%- event.id %>">Read More</button>
+                            </div>
+                        </div>
                     <% }); %>
                 </div>
             </li>
@@ -28,7 +39,7 @@
                 if (day.date) { daysToBeAdded-- }
             });
             while (daysToBeAdded > 0) { %>
-                <li class="notaday">X</li>
+                <li class="notaday">&nbsp;</li>
                 <% daysToBeAdded--;
             }
         %>

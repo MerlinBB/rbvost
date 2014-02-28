@@ -1,11 +1,21 @@
 <button class="close-modal">X</button>
 <% _.each(event, function(event) { %>
-    <%- event.campaign %>
-    <%- event.date %>
-    <%- event.id %>
-    <%- event.location %>
-    <%- event.name %>
-    <%- event.prettyDate %>
-    <%- event.region %>
-    <%- event.target %>
+    <div class="event-date">
+        <%- event.prettyDate %>
+    </div>
+    <div class="event-name">
+        <%- event.name %>
+    </div>
+    <div class="event-location">
+        <%- event.region %> | <%- event.location %>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            DESCRIPTION
+        </div>
+        <div class="col-sm-8">
+            FLEXSLIDER
+        </div>
+    </div>
 <% }) %>

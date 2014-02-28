@@ -1,10 +1,15 @@
-<select name="year" id="year-selector" class="year-selector">
-	<% _.each(years, function (year) { %>
-		<option
-            value="<%- year.year %>"
-            <% if (year.isCurrent) { %> selected <% } %>
-        >
-            <%- year.year %>
-        </option>
-    <% }); %>
-</select>
+<button class="menu-item menu-item-dropdown">
+    <span class="current-year">
+        <% _.each(years, function (year) { %>
+            <% if (year.isCurrent) { %> <%- year.year %> <% } %>
+        <% }); %>
+    </span>
+    <i class="fa fa-arrow-circle-down"></i>
+    <ul id="year-selector" class="dropdown year-selector">
+        <% _.each(years, function (year) { %>
+            <li data-value="<%- year.year %>">
+                <%- year.year %>
+            </li>
+        <% }); %>
+    </ul>
+</button>

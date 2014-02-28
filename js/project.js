@@ -123,7 +123,8 @@
         bindUIActions: function () {
             // App Menu
             $("[data-navigate]").on("click", function (e) { rbvost.navigate(e); });
-            $("body").on("change", "#year-selector", function (e) { rbvost.yearShouldChange(e); });
+            $("body").on("click", ".menu-item-dropdown", function (e) { rbvost.dropdownShouldToggle(e); });
+            $("body").on("click", ".menu-item-dropdown li", function (e) { rbvost.yearShouldChange(e); });
 
             // Campaigns View
             $("body").on("click", ".campaign-filters button", function (e) { rbvost.campaignsShouldFilter(e); });
@@ -218,12 +219,23 @@
             rbvost.renderView(data, "year-selector.html", ".year-selector-view");
         },
 
-        yearShouldChange: function (e) {
-            // Set spinner
-            $("#app").css({ "background-image" : "" });
+        dropdownShouldToggle: function (e) {
+            $(e.currentTarget).find(".fa").toggleClass("fa-rotate-180");
+            $(e.currentTarget).find(".dropdown").slideToggle("fast");
+        },
 
-            // Hit API for requested year, update cache and re-render
-            rbvost.currentYear = $(e.currentTarget).val();
+        yearShouldChange: function (e) {
+            var year = $(e.currentTarget).data("value");
+
+            // Close menu and update text
+            rbvost.dropdownShouldToggle(e);
+            $(".menu-item-dropdown .current-year").text(year);
+
+            console.log(year);
+
+            // Set spinner and it API for requested year, update cache and re-render
+            $("#app").css({ "background-image" : "" });
+            rbvost.currentYear = year;
             rbvost.getContent();
         },
 
@@ -361,7 +373,8 @@
                     var thisEvent = {};
                     // add data to object
                     thisEvent.date = event.event_date;
-                    thisEvent.prettyDate = moment(event.event_date).format("MMM Do YYYY");
+                    thisEvent.prettyDate = moment(event.event_date).format("dddd Do MMMM YYYY");
+                    thisEvent.prettyDateShort = moment(event.event_date).format("dddd Do");
                     thisEvent.location = event.event_location;
                     thisEvent.name = event.event_name;
                     thisEvent.campaign = campaign;

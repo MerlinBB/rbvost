@@ -17,6 +17,7 @@
 @import "helpers.less";
 @import "grid.less";
 @import "flexslider.less";
+@import "font-awesome.less";
 
 @font-face{
     font-family:"Siri-Reg";
@@ -163,6 +164,7 @@ a:active {
             background:#fff;
             color:@color-text;
             transition:all 0.3s ease-in-out;
+            border-radius:0 0 2px 2px;
             padding:(@space/2) (@space/2) 7px (@space/2); // magic number :( to vertically center weird webfont
             .futura();
             &:focus {
@@ -170,7 +172,10 @@ a:active {
                 color:#fff;
                 outline:none;
             }
-            &.username { border-bottom:1px solid #eee; }
+            &.username {
+                border-radius: 2px 2px 0 0;
+                border-bottom:1px solid @input-color-placeholder;
+            }
         }
         label { display:none; }
         .login-remember {
@@ -199,12 +204,17 @@ a:active {
                 box-shadow:0 1px 2px 1px rgba(0,0,0,0), inset 0 1px 2px 1px rgba(0,0,0,0.3);
             }
         }
+        .form-group {
+            position:relative;
+            .fa {
+                .position(absolute, (@space/2), (@space/2), auto, auto);
+                color:@input-color-placeholder;
+            }
+        }
     }
     @media (max-width:@break-small) {
         margin:30px auto;
     }
-    @media (max-width:@break-medium) { }
-    @media (max-width:@break-large) { }
 }
 
 .alert {
@@ -225,14 +235,16 @@ a:active {
 
 .app-menu {
     background-color:@color-branddesatblue;
+    height:95px;
     .menu-item {
         .futura();
         line-height:1;
+        height:95px;
         background:@color-branddesatblue;
         padding:(@space*2) @space;
         border:0 solid @color-branddesatblue-dark;
         border-left-width:1px;
-        color: @color-branddesatblue-dark;
+        color:@color-branddesatblue-dark;
         box-shadow:inset 0 5px 0 0 rgba(0,0,0,0);
         transition:all 0.2s;
         &:focus { outline:none; }
@@ -242,6 +254,36 @@ a:active {
             box-shadow:inset 0 5px 0 0 @color-brandred;
         }
         &[data-navigate="calendar"] { border-right-width:1px; }
+        &:hover {
+            color:darken(@color-branddesatblue-dark, 10%);
+        }
+        &.current:hover {
+            color:#fff;
+            cursor:auto;
+        }
+        &.menu-item-dropdown {
+            position:relative;
+            border-left-width:0;
+            .fa { transition:all 0.4s; }
+            .dropdown {
+                .position(absolute, 100%, 0, auto, 0);
+                z-index:3;
+                background:@color-branddesatblue;
+                margin:0;
+                padding:0;
+                border-radius:0 0 2px 2px;
+                display:none;
+                li {
+                    padding:(@space/2);
+                    border-top:1px solid @color-branddesatblue-dark;
+                    color:@color-branddesatblue-dark;
+                    transition:color 0.2s;
+                    &:hover {
+                        color:darken(@color-branddesatblue-dark, 10%);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -267,9 +309,9 @@ a:active {
         border-radius:2px;
         transition:all 0.2s;
         .futura();
-        font-size:12px;
+        font-size:16px;
         color:@color-text;
-        padding:6px 10px 4px;
+        padding:6px 10px 2px;
         margin-bottom:2px;
         &:focus { outline:none; }
         // our active class for current filter
@@ -279,30 +321,30 @@ a:active {
         }
         &.has-tooltip {
             position:relative;
-            padding-left:30px;
             .tooltip {
-                .position(absolute, 4px, auto, auto, 8px);
-                .square(16px);
-                background:red;
+                transition:color 0.2s;
+                &:hover { color:darken(@color-text, 20%); }
                 .inner {
-                    .position(absolute, 25px, auto, auto, -10px);
+                    .position(absolute, 25px, auto, auto, 0);
+                    width:200px;
                     font-family:sans-serif;
                     font-weight:normal;
                     font-size:12px;
+                    line-height:@line-height-base;
                     text-transform:none;
                     text-align:left;
                     z-index:3;
                     background:#000;
-                    background:rgba(0,0,0,0.8);
+                    background:rgba(0,0,0,0.9);
                     padding:(@space/2);
                     color:#fff;
                     display:none;
                     &::before {
                         content:'';
-                        .position(absolute, -5px, auto, auto, 13px);
+                        .position(absolute, -5px, auto, auto, 12px);
                         display:block;
-                        width:0;
-                        height:0;
+                        .size(0,0);
+                        // triangle
                         border-left:5px solid transparent;
                         border-right:5px solid transparent;
                         border-bottom:5px solid #000;
@@ -337,8 +379,8 @@ a:active {
             color:@color-brandred;
             &.subtitle {
                 font-size:16px;
-                color:@color-brandyellow;
-                margin-bottom:@space;
+                color:@color-text;
+                margin-bottom:(@space/2);
             }
         }
         .description {
@@ -359,49 +401,55 @@ a:active {
     .month {
         list-style:none;
         .cf();
-        margin:0;
-        padding:0;
-        background:#ccc;
+        margin:0 0 (@space/2) 0;
+        padding:(@space/2);
+        background:@color-appgrey;
+        border:1px solid @color-appgrey-vdark;
+        border-radius:2px;
     }
-    .month-name,
     .notaday,
     .day {
         float:left;
-        box-shadow:0 0 0 1px #aaa;
-        border: 1px solid #aaa;
+        border: 0 solid @color-appgrey-vdark;
+        color:@color-appgrey-vdark;
+        border-width:1px 1px 1px 0;
+        padding:5px 0;
         text-align:center;
         font-size:12px;
         transition:background 0.4s;
         position:relative;
+        box-shadow: -1px 0 0 0px @color-appgrey-vdark;
         &.event {
             cursor:pointer;
-            background:#fff;
+            background:@color-brandblue;
+            color:#fff;
+            font-weight:bold;
             &.hidden-event {
-                background:#ccc;
+                background:@color-appgrey-vdark;
                 cursor:auto;
+                pointer-events:none;
             }
         }
     }
     .month-name {
+        .futura();
+        padding:5px 0;
+        float:left;
         width:8.8235%;
-        text-align:left;
-        font-weight:bold;
-        padding-left:1em;
     }
     .notaday,
     .day { width:2.9410%; }
     .empty { display:none; }
+    .notaday { background:darken(@color-appgrey, 5%); }
     .popup {
         width:160px;
         .position(absolute, 25px, 0, auto, auto);
-        font-family:sans-serif;
-        font-weight:normal;
-        font-size:12px;
-        text-transform:none;
+        .futura();
+        text-transform:uppercase;
         text-align:left;
         z-index:3;
         background:#000;
-        background:rgba(0,0,0,0.8);
+        background:rgba(0,0,0,0.9);
         padding:(@space/2);
         color:#fff;
         display:none;
@@ -409,12 +457,44 @@ a:active {
             content:'';
             .position(absolute, -5px, 10px, auto, auto);
             display:block;
-            width:0;
-            height:0;
+            .size(0,0);
             border-left:5px solid transparent;
             border-right:5px solid transparent;
             border-bottom:5px solid #000;
             border-bottom:5px solid rgba(0,0,0,0.8);
+        }
+        .close-popup {
+            .appearance(none);
+            .position(absolute, (@space/2), (@space/2), auto, auto);
+            color:@color-popupgrey;
+            padding:0;
+            transition:color 0.2s;
+            &:hover { color:darken(@color-popupgrey, 10%); }
+            &:focus { outline:none; }
+        }
+        .event + .event { margin-top:(@space/2); }
+        .event-date {
+            margin-bottom:(@space/2);
+        }
+        .event-name {
+            color:@color-brandred;
+        }
+        .event-location {
+            color:@color-brandyellow;
+            margin-bottom:(@space/4);
+        }
+        .read-more {
+            width:100%;
+            background:#222;
+            color:@color-popupgrey;
+            border:1px solid @color-popupgrey;
+            padding:(@space/4) @space;
+            border-radius:4px;
+            &:hover {
+                color:darken(@color-popupgrey, 10%);
+                border-color:darken(@color-popupgrey, 10%);
+            }
+            &:focus { outline:none; }
         }
     }
 }
@@ -429,8 +509,39 @@ a:active {
     .position(fixed, 0, 0, 0, 0);
     z-index:9;
     background:#fff;
-    background:rgba(255,255,255,0.9);
+    background:rgba(255,255,255,0.95);
     display:none;
+    .container {
+        position:relative;
+        margin-top:172px;
+        padding-left:(@space*2);
+        padding-right:(@space*2);
+    }
+    .close-modal {
+        .position(absolute, 0, (@space*2), auto, auto);
+        .appearance(none);
+        .size(41px, 41px);
+        background:url(img/modal-close.png) no-repeat center center;
+        text-indent:150%;
+        opacity:0.7;
+        transition:opacity 0.2s;
+        &:hover { opacity:1; }
+        &:focus { outline:none; }
+    }
+    .event-date {
+        .futura();
+        text-transform:uppercase;
+    }
+    .event-name {
+        .futura();
+        text-transform:uppercase;
+        color:@color-brandred;
+    }
+    .event-location {
+        .futura();
+        text-transform:uppercase;
+        color:@color-brandyellow;
+    }
 }
 
 
