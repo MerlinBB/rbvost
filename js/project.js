@@ -231,8 +231,6 @@
             rbvost.dropdownShouldToggle(e);
             $(".menu-item-dropdown .current-year").text(year);
 
-            console.log(year);
-
             // Set spinner and it API for requested year, update cache and re-render
             $("#app").css({ "background-image" : "" });
             rbvost.currentYear = year;
@@ -314,7 +312,6 @@
 
         renderCalendarFilters: function () {
             var data = rbvost.cache;
-            console.log(data);
 
             var filters = {
                 targets: rbvost.getUniqueTargets(),
