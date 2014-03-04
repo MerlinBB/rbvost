@@ -19,9 +19,11 @@
             <div class="flexslider">
                 <ul class="slides">
                     <% _.each(event.images, function (slide) { %>
-                        <li>
-                            <img src="<%- slide.image %>" alt="<%- event.name %>">
-                        </li>
+                        <% if (slide.name) { %>
+                            <li>
+                                <img src="<%- slide.image %>" alt="<%- event.name %>">
+                            </li>
+                        <% } %>
                     <% }); %>
                 </ul>
             </div>
