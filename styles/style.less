@@ -521,13 +521,14 @@ a:active {
 
 .modal {
     .position(fixed, 0, 0, 0, 0);
+    overflow:scroll;
     z-index:9;
     background:#fff;
     background:rgba(255,255,255,0.95);
     display:none;
     .container {
         position:relative;
-        margin-top:172px;
+        margin-top:(@space*2);
         padding-left:(@space*2);
         padding-right:(@space*2);
     }
@@ -555,6 +556,7 @@ a:active {
         .futura();
         text-transform:uppercase;
         color:@color-brandyellow;
+        margin-bottom:@space;
     }
 }
 

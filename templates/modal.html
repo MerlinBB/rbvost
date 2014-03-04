@@ -1,5 +1,6 @@
 <button class="close-modal">X</button>
 <% _.each(event, function(event) { %>
+
     <div class="event-date">
         <%- event.prettyDate %>
     </div>
@@ -12,10 +13,18 @@
 
     <div class="row">
         <div class="col-sm-4">
-            DESCRIPTION
+            <%- event.description %>
         </div>
         <div class="col-sm-8">
-            FLEXSLIDER
+            <div class="flexslider">
+                <ul class="slides">
+                    <% _.each(event.images, function (slide) { %>
+                        <li>
+                            <img src="<%- slide.image %>" alt="<%- event.name %>">
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
         </div>
     </div>
 <% }) %>

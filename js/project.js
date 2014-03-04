@@ -375,6 +375,8 @@
                     thisEvent.location = event.event_location;
                     thisEvent.name = event.event_name;
                     thisEvent.campaign = campaign;
+                    thisEvent.description = event.event_description;
+                    thisEvent.images = event.event_images;
                     thisEvent.region = region;
                     thisEvent.target = target;
                     thisEvent.id = "" + (new Date().getTime()) + (Math.floor(Math.random() * 999999) + 1);
@@ -465,6 +467,7 @@
 
             var afterRender = function () {
                 $("#modal").fadeIn("fast");
+                $(".flexslider").flexslider();
             };
 
             rbvost.renderView(thisEvent, "modal.html", ".modal-view", afterRender);

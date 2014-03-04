@@ -39,23 +39,23 @@
 .carousel li { margin-right: 5px; }
 
 /* Direction Nav */
-.flex-direction-nav a  { text-decoration:none; display:block; .size(60px, 24px); margin: -12px 0 0; position:absolute; top:50%; z-index:10; overflow:hidden; opacity:0; cursor:pointer; transition:all .2s ease; text-indent:110%; background-repeat:no-repeat; background-position:center center;
-    &.flex-next { .retina-image("img/icon-arrow-right.png", "img/icon-arrow-right@2x.png", 30px, 12px); }
-    &.flex-prev { .retina-image("img/icon-arrow-left.png", "img/icon-arrow-left@2x.png", 30px, 12px); }
+.flex-direction-nav a  { text-decoration:none; display:block; .size(40px, 40px); margin: -20px 0 0; position:absolute; top:50%; z-index:10; overflow:hidden; opacity:0.4; cursor:pointer; transition:opacity .2s; text-indent:110%; background-repeat:no-repeat; background-position:center center;
+    &.flex-next { .retina-image("img/icon-arrow-right.png", "img/icon-arrow-right@2x.png", 40px, 40px); }
+    &.flex-prev { .retina-image("img/icon-arrow-left.png", "img/icon-arrow-left@2x.png", 40px, 40px); }
 }
-.flex-direction-nav .flex-prev { left: -50px; }
-.flex-direction-nav .flex-next { right: -50px; text-align: right; }
-.flexslider:hover .flex-prev { opacity: 0.7; left: 10px; }
-.flexslider:hover .flex-next { opacity: 0.7; right: 10px; }
+.flex-direction-nav .flex-prev { left: 10px; }
+.flex-direction-nav .flex-next { right: 10px; text-align: right; }
+.flexslider:hover .flex-prev { opacity: 0.9; }
+.flexslider:hover .flex-next { opacity: 0.9; }
 .flexslider:hover .flex-next:hover, .flexslider:hover .flex-prev:hover { opacity:1; }
 .flex-direction-nav .flex-disabled { opacity: 0!important; filter:alpha(opacity=0); cursor: default; }
 
 /* Control Nav */
 .flex-control-nav {width: 100%; position: absolute; bottom: -40px; text-align: center;}
 .flex-control-nav li {margin: 0 6px; display: inline-block; zoom: 1; }
-.flex-control-paging li a {width: 11px; height: 11px; display: block; background: #666; background: rgba(0,0,0,0.5); cursor: pointer; text-indent:-9999px; direction:ltr; border-radius:20px; box-shadow: inset 0 0 3px rgba(0,0,0,0.3); }
-.flex-control-paging li a:hover { background: #333; background: rgba(0,0,0,0.7); }
-.flex-control-paging li .flex-active { background: #000; background: rgba(0,0,0,0.9); cursor: default; }
+.flex-control-paging li a { .size(14px, 14px); display:block; background:transparent; border:1px solid @color-appgrey-vdark; cursor:pointer; text-indent:-9999px; direction:ltr; border-radius:50%; transition:background 0.2s; }
+.flex-control-paging li a:hover { background:@color-appgrey-vdark; }
+.flex-control-paging li .flex-active { background:@color-appgrey-vdark; cursor:default; }
 
 .flex-control-thumbs {margin: 5px 0 0; position: static; overflow: hidden;}
 .flex-control-thumbs li {width: 25%; float: left; margin: 0;}
