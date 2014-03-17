@@ -100,7 +100,10 @@ body {
     background-position:center center;
 }
 
-.switch-view { display:none; }
+.switch-view {
+    display:none;
+    padding-bottom:1px; // solves weird bug that ignores margins of children
+}
 
 .app {
     background:#e1e1e1 url(img/ajax-loader.gif) no-repeat 50% 60%;
@@ -293,6 +296,8 @@ a:active {
             }
         }
     }
+    @media (max-width: @break-medium) { .menu-item { padding:28px (@space*1.5); } }
+    @media (max-width: @break-small) { .menu-item { padding:28px (@space*1); } }
 }
 
 
@@ -365,6 +370,48 @@ a:active {
 
 
 //----------------------------------------------------------------------------//
+//  Targets
+//----------------------------------------------------------------------------//
+
+
+.targets-container {
+    margin:(@space/2) 0 0 0;
+    padding:(@space/2);
+    .target {
+        background-color:@color-appgrey;
+        padding:(@space/2);
+        margin:0 0 (@space/2) 0;
+        border:1px solid @color-appgrey-light;
+        width:100%;
+        display:inline-block;
+        vertical-align:top;
+        .title {
+            .futura();
+            font-size:20px;
+            margin:0 0 (@space/2) 0;
+            color:@color-brandred;
+        }
+        .description {
+            color:@color-text;
+            &:last-child { margin-bottom:0; }
+        }
+    }
+    @media (min-width: @break-small) {
+        margin:(@space/2) (-@space/2) 0 0;
+        .target {
+            width:209px;
+            margin:0 (@space/2) (@space/2) 0;
+        }
+    }
+    @media (min-width: @break-medium) {
+        .target { width:286px; }
+    }
+    @media (min-width: @break-large) {
+        .target{ width:366px; }
+    }
+}
+
+//----------------------------------------------------------------------------//
 //  Campaigns
 //----------------------------------------------------------------------------//
 
@@ -374,7 +421,7 @@ a:active {
     padding-top:(@space/4);
     .campaign {
         padding:(@space/4);
-        width:33.3333%;
+        width:100%;
         .inner {
             background-color:@color-appgrey;
             padding:(@space/2);
@@ -395,6 +442,9 @@ a:active {
             color:@color-text;
             &:last-child { margin-bottom:0; }
         }
+        @media (min-width: @break-small) { width:218px; }
+        @media (min-width: @break-medium) { width:296px; }
+        @media (min-width: @break-large) { width:376px; }
     }
 }
 

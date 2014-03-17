@@ -5,7 +5,7 @@
 
         siteurl:         window.location.href,
         templateurl:     window.location.href + "/wp-content/themes/rbvost/templates/",
-        currentView:     "campaign",
+        currentView:     "target",
         currentYear:     new Date().getFullYear(),
         dateRange:       { years: [] },
         cache:           {},
@@ -141,6 +141,10 @@
         router: function (view) {
             $(".switch-view").hide();
 
+            if (view === "target") {
+                rbvost.renderTargets();
+            }
+
             if (view === "campaign") {
                 rbvost.renderCampaignFilters();
                 rbvost.renderCampaignList();
@@ -235,6 +239,19 @@
             $("#app").css({ "background-image" : "" });
             rbvost.currentYear = year;
             rbvost.getContent();
+        },
+
+
+        // -----------------------------------------------------------------------------------------
+        // Targets View
+        // -----------------------------------------------------------------------------------------
+
+
+        renderTargets: function () {
+            var data = rbvost.cache;
+            var uniqueTargets = rbvost.getUniqueTargets();
+
+            rbvost.renderView(uniqueTargets, "targets.html", ".targets-view");
         },
 
 
