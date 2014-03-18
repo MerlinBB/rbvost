@@ -357,6 +357,7 @@
                     if (region.slug === "london") { region.title = "London"; }
                     if (region.slug === "north") { region.title = "North / Scotland"; }
                     if (region.slug === "southwest") { region.title = "South West"; }
+                    if (region.slug === "midlands") { region.title = "Midlands"; }
 
                     filters.regions.push(region);
                 }
