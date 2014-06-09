@@ -15,13 +15,8 @@
                         <i class="fa fa-lg fa-times-circle"></i>
                     </button>
 
-                    <% var firstpass = true; %>
-
                     <% _.each(day.events, function(event) { %>
-                        <% if (firstpass) { %>
-                            <div class="event-date"><%- event.prettyDateShort %></div>
-                            <% firstpass = false; %>
-                        <% } %>
+                        <div class="event-date"><%- event.prettyDateShort %></div>
 
                         <div class="event">
                             <div class="event-name"><%- event.name %></div>
