@@ -171,10 +171,6 @@
             });
         },
 
-        windowLoaded: function () {
-            //
-        },
-
         windowResized: function () {
             // retrigger the isotope layout engine
             $(rbvost.isotopeEl).isotope("reLayout");
@@ -284,12 +280,15 @@
 
                 campaign.title = post.title;
                 campaign.description = post.acf.campaign_description;
+                campaign.image = post.acf.campaign_image;
 
                 viewData.campaigns.push(campaign);
             });
 
             var afterRender = function () {
-                $(rbvost.isotopeEl).isotope();
+                $(rbvost.isotopeEl).imagesLoaded(function () {
+                    $(rbvost.isotopeEl).isotope();
+                });
             };
 
             rbvost.renderView(viewData, "campaign-list.html", ".campaign-list-view", afterRender);
@@ -414,8 +413,6 @@
                 });
             });
 
-            console.log(calendarEvents);
-
             // now we have added our unique id to each event
             // we can cache the events object so we can use it later for the event popup
             rbvost.cache.events = calendarEvents;
@@ -515,8 +512,6 @@
 
     // DOM Ready
     $(function () { rbvost.init(); });
-    // Images Loaded
-    $(window).load(function () { rbvost.windowLoaded(); });
     // Window Resized (smart debounced event)
     $(window).bind("debouncedresize", function () { rbvost.windowResized(); });
 

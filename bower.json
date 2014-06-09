@@ -11,6 +11,7 @@
     "underscore": "~1.5.2",
     "clndr": "~1.2.0",
     "isotope": "~1.5.26",
-    "flexslider": "*"
+    "flexslider": "*",
+    "imagesloaded": "~3.1.5"
   }
 }

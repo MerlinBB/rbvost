@@ -67,6 +67,8 @@ module.exports = function (grunt) {
                     "js/bower/jquery-smartresize/jquery.debouncedresize.js",
                     "js/bower/underscore/underscore.js",
                     "js/bower/moment/moment.js",
+                    "js/bower/eventEmitter/EventEmitter.js",
+                    "js/bower/imagesloaded/imagesloaded.js",
                     "js/bower/isotope/jquery.isotope.js",
                     "js/bower/clndr/src/clndr.js",
                     "js/bower/flexslider/jquery.flexslider.js",
@@ -104,27 +106,6 @@ module.exports = function (grunt) {
                 files: ["js/project.js", "Gruntfile.js"],
                 tasks: "buildjs"
             }
-        },
-
-        notify: {
-            notify_hooks: {
-                options: {
-                    enabled: true,
-                    max_jshint_notifications: 5,
-                }
-            },
-            js: {
-                options: {
-                    title: "Back of the net!",
-                    message: "Javascript build successful!"
-                }
-            },
-            less: {
-                options: {
-                    title: "Cashback!",
-                    message: "LESS build successful!"
-                }
-            }
         }
 
     });
@@ -133,5 +114,6 @@ module.exports = function (grunt) {
     grunt.registerTask("default", []);
     grunt.registerTask("buildcss", ["less", "autoprefixer", "csslint", "cssmin"]);
     grunt.registerTask("buildjs", ["jshint", "concat", "uglify"]);
+    grunt.registerTask("buildimg", ["imagemin"]);
 
 };

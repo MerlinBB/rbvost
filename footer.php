@@ -23,10 +23,12 @@
         echo '<script src ="' . $theme . '/js/bower/jquery-smartresize/jquery.debouncedresize.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/underscore/underscore.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/moment/moment.js"></script>';
+        echo '<script src ="' . $theme . '/js/bower/eventEmitter/EventEmitter.js"></script>';
+        echo '<script src ="' . $theme . '/js/bower/imagesloaded/imagesloaded.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/isotope/jquery.isotope.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/clndr/src/clndr.js"></script>';
         echo '<script src ="' . $theme . '/js/bower/flexslider/jquery.flexslider.js"></script>';
-        echo '<script src ="' . $theme . '/js/project.js"></script>';
+        echo '<script src ="' . $theme . '/js/project.js?' . date('l jS \of F Y h:i:s A') . '"></script>';
 
     }
 ?>
