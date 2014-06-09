@@ -16,9 +16,8 @@
                     </button>
 
                     <% _.each(day.events, function(event) { %>
-                        <div class="event-date"><%- event.prettyDateShort %></div>
-
                         <div class="event">
+                            <div class="event-date"><%- event.prettyDateShort %></div>
                             <div class="event-name"><%- event.name %></div>
                             <div class="event-location"><%- event.location %></div>
                             <div class="cf">
