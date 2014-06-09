@@ -188,7 +188,7 @@
 
         navigate: function (e) {
             // Set spinner
-            $("#app").css({ "background-image" : "" });
+            $("#app").css({ "background-image" : rbvost.siteurl + "/wp-content/themes/rbvost/img/ajax-loader.gif" });
 
             // Toggle active state in menu
             $("button[data-navigate]").removeClass("current");
@@ -387,9 +387,20 @@
                     // create event object
                     var thisEvent = {};
                     // add data to object
-                    thisEvent.date = event.event_date;
-                    thisEvent.prettyDate = moment(event.event_date).format("dddd Do MMMM YYYY");
-                    thisEvent.prettyDateShort = moment(event.event_date).format("dddd Do");
+
+                    // All events are technically multi day, but we mock single day events by setting the start and end dates to be the same.
+                    if (event.event_type === "Multi Day") {
+                        thisEvent.startDate = event.event_start_date;
+                        thisEvent.endDate = event.event_end_date;
+                        thisEvent.prettyDate = moment(event.event_start_date).format("dddd Do MMMM YYYY") + " - " + moment(event.event_end_date).format("dddd Do MMMM YYYY");
+                        thisEvent.prettyDateShort = moment(event.event_start_date).format("dddd Do") + " - " + moment(event.event_end_date).format("dddd Do");
+                    } else {
+                        thisEvent.startDate = event.event_date;
+                        thisEvent.endDate = event.event_date;
+                        thisEvent.prettyDate = moment(event.event_start_date).format("dddd Do MMMM YYYY");
+                        thisEvent.prettyDateShort = moment(event.event_start_date).format("dddd Do");
+                    }
+
                     thisEvent.location = event.event_location;
                     thisEvent.name = event.event_name;
                     thisEvent.campaign = campaign;
@@ -402,6 +413,8 @@
                     calendarEvents.push(thisEvent);
                 });
             });
+
+            console.log(calendarEvents);
 
             // now we have added our unique id to each event
             // we can cache the events object so we can use it later for the event popup
@@ -423,7 +436,10 @@
                         template: calendarTemplate,
                         events: calendarEvents,
                         showAdjacentMonths: false,
-
+                        multiDayEvents: {
+                            startDate: "startDate",
+                            endDate: "endDate"
+                        },
                         lengthOfTime: {
                             months: 12,
                             startDate: rbvost.currentYear + "-01-01"
