@@ -12,7 +12,7 @@
                         <div class="year-selector-view fl"></div>
                         <button class="menu-item current fl" data-navigate="target">Targets</button>
                         <button class="menu-item fl" data-navigate="campaign">Campaigns</button>
-                        <button class="menu-item fl" data-navigate="calendar">Events</button>
+                        <button class="menu-item fl" data-navigate="calendar">Calendar</button>
                         <a class="menu-item fr" href="<?php echo wp_logout_url( home_url() ); ?>">Log Out</a>
                     </nav>
 
