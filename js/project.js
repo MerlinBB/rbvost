@@ -344,21 +344,32 @@
                 filters.campaigns.push(campaign);
             });
 
-            // get regions
-            _.each(data.posts, function (post) {
-                var exists = _.findWhere(filters.regions, { slug: post.acf.region });
+            var getUniqueRegions = function (region) {
+                var thisRegion = {};
+                thisRegion.slug = region;
+
+                if (thisRegion.slug === "national") { thisRegion.title = "National"; }
+                if (thisRegion.slug === "london") { thisRegion.title = "London"; }
+                if (thisRegion.slug === "north") { thisRegion.title = "North / Scotland"; }
+                if (thisRegion.slug === "southwest") { thisRegion.title = "South West"; }
+                if (thisRegion.slug === "midlands") { thisRegion.title = "Midlands"; }
+
+                var exists = _.findWhere(filters.regions, { slug: thisRegion.slug });
 
                 if (!exists) {
-                    var region = {};
-                    region.slug = post.acf.region;
+                    filters.regions.push(thisRegion);
+                }
+            };
 
-                    if (region.slug === "national") { region.title = "National"; }
-                    if (region.slug === "london") { region.title = "London"; }
-                    if (region.slug === "north") { region.title = "North / Scotland"; }
-                    if (region.slug === "southwest") { region.title = "South West"; }
-                    if (region.slug === "midlands") { region.title = "Midlands"; }
-
-                    filters.regions.push(region);
+            // get regions
+            _.each(data.posts, function (post) {
+                // annoyingly the API can return a string or an array for the regions list
+                if (_.isArray(post.acf.region)) {
+                    _.each(post.acf.region, function (region) {
+                        getUniqueRegions(region);
+                    });
+                } else {
+                    getUniqueRegions(post.acf.region);
                 }
             });
 
@@ -400,12 +411,15 @@
                         thisEvent.prettyDateShort = moment(event.event_start_date).format("dddd Do");
                     }
 
+                    // Regions might be a string or array - lets make sure they're a string
+                    var regionList = region.toString().replace(",", " ");
+
                     thisEvent.location = event.event_location;
                     thisEvent.name = event.event_name;
                     thisEvent.campaign = campaign;
                     thisEvent.description = event.event_description;
                     thisEvent.images = event.event_images;
-                    thisEvent.region = region;
+                    thisEvent.region = regionList;
                     thisEvent.target = target;
                     thisEvent.id = "" + (new Date().getTime()) + (Math.floor(Math.random() * 999999) + 1);
                     // push results to hoisted array
