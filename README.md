@@ -1,4 +1,4 @@
-#rbVOST
+#rbVOST 1.1.0
 
 Repository online at - https://github.com/MerlinBB/rbvost
 Please contact Merlin Mason for push access.

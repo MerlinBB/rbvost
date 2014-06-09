@@ -407,8 +407,8 @@
                     } else {
                         thisEvent.startDate = event.event_date;
                         thisEvent.endDate = event.event_date;
-                        thisEvent.prettyDate = moment(event.event_start_date).format("dddd Do MMMM YYYY");
-                        thisEvent.prettyDateShort = moment(event.event_start_date).format("dddd Do");
+                        thisEvent.prettyDate = moment(event.event_date).format("dddd Do MMMM YYYY");
+                        thisEvent.prettyDateShort = moment(event.event_date).format("dddd Do");
                     }
 
                     // Regions might be a string or array - lets make sure they're a string
