@@ -1,5 +1,6 @@
 <div class="filters calendar-filters">
     <div class="filter-row">
+        <label class="filter-label">Filter by Target</label>
         <button class="active" data-filter="*" data-type="targets">All</button>
         <% _.each(targets, function (targets) { %>
             <% _.each(targets, function (target) { %>
@@ -14,6 +15,7 @@
     </div>
 
     <div class="filter-row">
+        <label class="filter-label">Filter by Campaign</label>
         <button class="active" data-filter="*" data-type="campaigns">All</button>
         <% _.each(campaigns, function (campaign) { %>
             <button data-filter=".<%- campaign.slug %>" data-type="campaigns">
@@ -23,6 +25,7 @@
     </div>
 
     <div class="filter-row">
+        <label class="filter-label">Filter by Region</label>
         <button class="active" data-filter="*" data-type="regions">All</button>
         <% _.each(regions, function (region) { %>
             <button data-filter=".<%- region.slug %>" data-type="regions">

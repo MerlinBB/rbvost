@@ -1,5 +1,6 @@
 <div class="filters campaign-filters">
     <div class="filter-row">
+        <label class="filter-label">Filter by Target</label>
         <button class="active" data-filter="*">All</button>
         <% _.each(targets, function (target) { %>
             <button class="has-tooltip" data-filter=".<%- target.slug %>">
