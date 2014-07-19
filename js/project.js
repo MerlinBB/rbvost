@@ -278,8 +278,6 @@
                     }
                 });
 
-                console.log(post.title);
-                console.log(campaign.title);
                 campaign.title = post.title;
                 campaign.description = post.acf.campaign_description;
                 campaign.image = post.acf.campaign_image;
