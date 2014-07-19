@@ -8,7 +8,10 @@
         <%= event.name %>
     </div>
     <div class="event-location">
-        <%= event.region %> | <%- event.location %>
+        <%= event.region %>
+        <% if (event.location.length) { %>
+            | <%- event.location %>
+        <% } %>
     </div>
 
     <div class="row">
