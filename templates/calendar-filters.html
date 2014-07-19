@@ -5,9 +5,9 @@
             <% _.each(targets, function (target) { %>
                 <button data-filter=".<%- target.slug %>" data-type="targets">
                     <div class="tooltip">
-                        <div class="inner hidden"><%- target.description %></div>
+                        <div class="inner hidden"><%= target.description %></div>
                     </div>
-                    <%- target.title %>
+                    <%= target.title %>
                 </button>
             <% }); %>
         <% }); %>
@@ -17,7 +17,7 @@
         <button class="active" data-filter="*" data-type="campaigns">All</button>
         <% _.each(campaigns, function (campaign) { %>
             <button data-filter=".<%- campaign.slug %>" data-type="campaigns">
-                <%- campaign.title %>
+                <%= campaign.title %>
             </button>
         <% }); %>
     </div>
@@ -26,7 +26,7 @@
         <button class="active" data-filter="*" data-type="regions">All</button>
         <% _.each(regions, function (region) { %>
             <button data-filter=".<%- region.slug %>" data-type="regions">
-                <%- region.title %>
+                <%= region.title %>
             </button>
         <% }); %>
     </div>
