@@ -9,7 +9,7 @@
     </div>
     <div class="event-location">
         <%= event.region %>
-        <% if (event.location.length) { %>
+        <% if (event.location.length && event.location !== "National") { %>
             | <%- event.location %>
         <% } %>
     </div>
